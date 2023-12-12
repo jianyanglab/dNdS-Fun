@@ -1,0 +1,23 @@
+Package: dNdSFun
+Type: Package
+Title: Mixed model-based deconvolution of cell-state abundance 
+Version: 1.00
+Author: Mengyue Zheng <zhengmengyue@westlake.edu.cn>
+Maintainer: Junren Hou <houjunren@westlake.edu.cn>
+Description: MeDuSA is a fine-resolution cellular deconvolution method that aimes to estimate cell-state abundance along a predefined cell trajectory in a given bulk RNA-seq data.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    foreach,
+    MASS,
+    parallel,
+    doParallel,
+    R (= 4.0.5)
+Imports: MASS, parallel, doParallel, data.table
+LinkingTo: Rcpp,RcppEigen
+RoxygenNote: 7.2.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
