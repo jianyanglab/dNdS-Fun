@@ -1,12 +1,12 @@
-# rm(list=ls())
-# source("CADD_dndsWGS.NEG.R")
+rm(list=ls())
+source("CADD_dndsWGS.NEG.R")
 # .libPaths("/storage/yangjianLab/zhengmengyue/SOFTWARE.bak/R_LIB_4.0.5")
-# library(parallel)
-# library(data.table)
-# library(MASS)
-# library(doParallel)
+library(parallel)
+library(data.table)
+library(MASS)
+library(doParallel)
 
-dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThreshold, negativeThreshold, gene_group, globaldnds_outFile, 
+dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThreshold, negativeThreshold, gene_group, globaldnds_outFile,
                  genelevel_selloc_outFile, genelevel_selcv_outFile, iscv, score = "ture", model = 3, negmu = 1){
     positiveThreshold <- as.numeric(positiveThreshold)
     negativeThreshold <- as.numeric(negativeThreshold)
@@ -52,7 +52,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
     ncpu <- length(thread_data)
     ncpu = min(ncpu,parallel::detectCores())
     cl = parallel::makeCluster(ncpu)
-    parallel::clusterExport(cl=cl, varlist=c("gr_elements", "nt", "score", "trinucMutsidx", "elements_list", "cv", "max_muts_per_element_per_sample", 
+    parallel::clusterExport(cl=cl, varlist=c("gr_elements", "nt", "score", "trinucMutsidx", "elements_list", "cv", "max_muts_per_element_per_sample",
                                             "max_element_muts_per_sample", "positiveThreshold", "negativeThreshold"), envir=environment())
     registerDoParallel(cl)
     `%dopar2%` = foreach::`%dopar%`
@@ -87,14 +87,14 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
                     combined_database <- paste(split_database_row[1:4], collapse = "")
                     combined_database <- paste0("chr",combined_database)
                     # print(combined_database)
-            
+
                     if (combined_database == input_data_comparison){
                         input_result = c(row_data,split_database_row[5])
                         colnames(maf) <- colnames(input_result)
                         maf <- rbind(maf,input_result)
                         count <- count + 1
 
-                    }   
+                    }
                 }
                 if (count == 0){
                     message("Failed to match",row_data," in database!")
@@ -118,7 +118,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
             if (length(nonex)>0) { stop(sprintf("The following input gene names are not in the RefCDS database: %s", paste(nonex,collapse=", "))) }
             RefElement = RefElement[allg %in% elements_list] # Only input genes
             gr_genes = gr_genes[gr_genes$names %in% elements_list] # Only input genes
-        } 
+        }
         maf <- maf[,1:6] #  Requiring the first 6 columns of input data
         maf[,c(1,2,3,4,5)] <- lapply(maf[,c(1,2,3,4,5)], as.character) # Convert factors to character
         maf[[3]] <- as.numeric(maf[[3]]) # Convert position as numeric
@@ -140,7 +140,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         }
 
         idx <- setNames(1:length(RefElement), sapply(RefElement,function(x) x$gene_name))
-        gr_elements_idx <- idx[gr_elements$names]  
+        gr_elements_idx <- idx[gr_elements$names]
         # Start and end position of each mutation
         maf$end <- maf$start <- maf$pos
         # Mapping mutations to genes
@@ -150,7 +150,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         maf$elementidx <- gr_elements_idx[ol[,2]]
         maf$element <- sapply(RefElement,function(x) x$gene_name)[maf$elementidx]
 
-        #maf <- unique(maf) 
+        #maf <- unique(maf)
         # Excluding samples with more than the defined maximum number of mutations per sample (optional)
         nsampl <- sort(table(maf$sampleID))
         exclsamples <- NULL
@@ -172,7 +172,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         if (nrow(idxna)>0) {
             maf <- maf[-unique(idxna[,1]),]
             warning(sprintf("%0.0f mutations contained NA impact score values and have been removed. Please investigate.",length(unique(idxna[,1]))))
-        } 
+        }
         maf$ref_cod <- maf$ref
         maf$mut_cod <- maf$alt
         compnt <- setNames(rev(nt), nt)
@@ -181,7 +181,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         maf$mut_cod[isminus] <- compnt[maf$alt[isminus]]
         for (j in 1:length(RefElement)) {
             RefElement[[j]]$N = array(0, dim=c(192,2)) # Initialising the N matrices
-        } 
+        }
 
         # Subfunction: obtaining the positions of a noncoding mutation given the intervals of the elements
         chr2element <- function(pos,element_int,strand) {
@@ -202,7 +202,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
             element <- RefElement[[elementidx]]$seq_element[pos_idx]
             ref3_cod[j] <- sprintf("%s%s%s", RefElement[[elementidx]]$seq_element1up[pos_idx], RefElement[[elementidx]]$seq_element[pos_idx], RefElement[[elementidx]]$seq_element1down[pos_idx])
             mut3_cod[j] <- sprintf("%s%s%s", RefElement[[elementidx]]$seq_element1up[pos_idx], maf$mut_cod[j], RefElement[[elementidx]]$seq_element1down[pos_idx])
-            
+
             if (maf$ref_cod[j] != as.character(element)) { # Incorrect base annotation in the input mutation file (the mutation will be excluded with a warning)
             wrong_ref[j] <- 1
             } else if (!is.na(impidx)) { # Correct base annotation in the input mutation file
@@ -210,7 +210,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
             RefElement[[elementidx]]$N[triMut,impidx] <- RefElement[[elementidx]]$N[triMut,impidx] + 1 # Adding the mutation to the N matrices
             # RefElement_addN <- append(RefElement_addN, list(RefElement[[elementidx]]))
             }
-            
+
             # if (round(j/1e4)==(j/1e4)) { message(sprintf('    %0.3g%% ...', round(j/nrow(maf),2)*100)) }
         }
 
@@ -253,7 +253,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         }
         close(output_logfile)
     }
-    
+
     CADD_dndsWGSout <- dnds2wgs.noncoding(maf, RefElement1, exclsamples, negbeta, trinucMuts, outp)
 
     if(model=="1"){
@@ -284,7 +284,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         globaldnds_res <- as.data.frame(matrix(c(unlist(globaldnds),info),nrow=1))
         colnames(globaldnds_res) <- c("mle","ci_low","ci_high","AIC","deviance",
                                     "overdis_chisq","overdis_ratio","overdis_p",
-                                    "mle_qua","ci_low_qua","ci_high_qua",                            
+                                    "mle_qua","ci_low_qua","ci_high_qua",
                                     "positive","negative","positiveThreshold","negativeThreshold",
                                     "gene_group","negbeta","iscv")
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
@@ -297,7 +297,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         selcv_res <- as.data.frame(sel_cv)
         write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
     }
-    
+
 }
 
 
