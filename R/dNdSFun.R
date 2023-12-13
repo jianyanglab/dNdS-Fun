@@ -1,4 +1,4 @@
-#' @keywords internal
+
 dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThreshold, negativeThreshold, gene_group, globaldnds_outFile,
                  genelevel_selloc_outFile, genelevel_selcv_outFile, iscv, score = "ture", model = 3, negmu = 1){
     rm(list=ls())
