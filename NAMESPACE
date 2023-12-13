@@ -1,1 +1,1 @@
-useDynLib(dNdSFun, .registration = TRUE)
+exportPattern("^[[:alpha:]]+")

@@ -15,9 +15,3 @@ Depends:
     doParallel,
     R (>= 4.0.5)
 Imports: MASS, parallel, doParallel, data.table
-LinkingTo: Rcpp,RcppEigen
-RoxygenNote: 7.2.1
-Suggests: 
-    knitr,
-    rmarkdown
-VignetteBuilder: knitr
