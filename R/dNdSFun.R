@@ -1,6 +1,6 @@
 
 dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThreshold, negativeThreshold, gene_group, globaldnds_outFile,
-                 genelevel_selloc_outFile, genelevel_selcv_outFile, iscv, score = "ture", model = 3, negmu = 1){
+                 genelevel_selloc_outFile, genelevel_selcv_outFile, iscv, score = "ture", score_database = None, model = 3, negmu = 1){
     library(parallel)
     library(data.table)
     library(MASS)
@@ -20,6 +20,12 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         outp=3
     }
 
+    score <- toupper(score)
+    if (score == "FALSE" and score_database == None){
+      error_message <- "Please enter score_database file."
+      stop(error_message)
+    }
+
     # Group by the second column
     grouped_data <- split(maf_data, maf_data[, 2])
     sorted_keys <- names(grouped_data)[order(as.numeric(gsub("chr", "", names(grouped_data))))]
@@ -33,7 +39,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
     data_sorted <- data_classified[sorted_keys]
     RefElement_array <- lapply(data_sorted, identity)
     thread_data <- Map(function(x, y) list(x, y), group_array, RefElement_array)
-    score <- toupper(score)
 
     # Define trinucleotide contexts
     nt <- c("A","C","G","T")
@@ -75,7 +80,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
                 input_data_comparison <- paste(first_four_columns, collapse = "")
                 chr_num <- gsub("\\D", "", row_data[,2])
                 postion <- row_data[,3]
-                commend <- paste0("tabix -h /storage/yangjianLab/sunxiwei/data/annotations/CADD/chr/whole_genome_SNVs.tsv.gz.",chr_name,".gz.rankRawScore.gz ",chr_num,":",as.integer(postion),"-",as.integer(postion),"| grep -v \"^#\"")
+                commend <- paste0("tabix -h "score_database"/whole_genome_SNVs.tsv.gz.",chr_name,".gz.rankRawScore.gz ",chr_num,":",as.integer(postion),"-",as.integer(postion),"| grep -v \"^#\"")
                 database <- system(commend, intern = TRUE)
                 count <- 0
                 for (database_row in database) {
