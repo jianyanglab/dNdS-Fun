@@ -12,8 +12,8 @@ devtools::install_github("jianyanglab/dNdSFun", build_vignettes=F)
 ```
 
 
-## How to Use
-See [tutorial.](https://leonsong1995.github.io/MeDuSA/)
+## How to Use 
+See [tutorial.](https://jianyanglab.github.io/dNdSFun/)
 
 
 ## Contact
