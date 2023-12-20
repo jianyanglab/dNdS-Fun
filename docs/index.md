@@ -4,7 +4,7 @@ homepage: true
 disable_anchors: true
 
 ---
-## MeDuSA
+## dNdSFun
 ![iDEA\_pipeline](Overview2.jpg)
 
 ### Introductions
@@ -13,9 +13,9 @@ dNdSFun is a genome-wide `selection` detection algorithm, integrating establishe
 
 
 ### Installations
-* [here](https://leonsong1995.github.io/MeDuSA/documentation/02_installation.html)
+* [here](https://jianyanglab.github.io/dNdSFun/documentation/02_installation.html)
 
 ### Example analysis
-* [hPSCs](https://leonsong1995.github.io/MeDuSA/documentation/05_hPSC_Example.html)
-* [monocytes](https://leonsong1995.github.io/MeDuSA/documentation/04_Mon_Example.html)
+* [hPSCs](https://jianyanglab.github.io/dNdSFun/documentation/05_hPSC_Example.html)
+* [monocytes](https://jianyanglab.github.io/dNdSFun/documentation/04_Mon_Example.html)
 

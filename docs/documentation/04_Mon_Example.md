@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Example (monocytes)
+title: Example (dNdSFun)
 description: ~
 ---
-This tutorial offers an illustrative analysis of the human monocytes data from [Oetjen et al., 2018](https://insight.jci.org/articles/view/124928) using MeDuSA. Prior to running the analysis, it is important to ensure that the MeDuSA package has been installed. For installation instructions, please refer to the following [link](https://leonsong1995.github.io/MeDuSA/documentation/02_installation.html).
+This tutorial offers an illustrative analysis of the human monocytes data from [Oetjen et al., 2018](https://insight.jci.org/articles/view/124928) using MeDuSA. Prior to running the analysis, it is important to ensure that the MeDuSA package has been installed. For installation instructions, please refer to the following [link](https://jianyanglab.github.io/dNdSFun/documentation/02_installation.html).
 
 
 ## Input Data
@@ -67,7 +67,7 @@ This section provides an introduction to the basic usage of MeDuSA.
 - fractional: A boolean variable to determine whether to normalize the estimated cell-state abundance to the fractional abundance (0-1).
 - ncpu: The number of CPU cores to be used. 
 
-For further details about the parameters, please refer to this [link](https://leonsong1995.github.io/MeDuSA/documentation/01_About.html).
+For further details about the parameters, please refer to this [link](https://jianyanglab.github.io/dNdSFun/documentation/01_About.html).
 ```r
 MeDuSA_obj = MeDuSA(bulk,sce,
                   select.ct = 'mon',markerGene = NULL,span = 0.35,
