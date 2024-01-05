@@ -7,8 +7,10 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     options_file <- read.table("Dichotomy.GRCh37.log", header = TRUE, stringsAsFactors = FALSE)
     positive <- options_file[options_file$Region == reg, 2]
     negative <- options_file[options_file$Region == reg, 2]
+    print(negative)
     positiveThreshold <- options_file[options_file$Region == reg, 3]
     negativeThreshold <- options_file[options_file$Region == reg, 3]
+    print(negativeThreshold)
     if (is.null(positive) || is.null(negativeThreshold)){
         error_message <- "Please enter the correct reg option."
         stop(error_message)
