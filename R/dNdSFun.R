@@ -5,7 +5,9 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     library(MASS)
     library(doParallel)
     dnds2wgs.noncoding("q", "2", "exclsamples", "negbeta", "trinucMuts", 1)
+    print('1')
     options_file <- read.table("https://raw.githubusercontent.com/dNdSFun/main/R/Dichotomy.GRCh37.log", header = TRUE, stringsAsFactors = FALSE)
+    print('2')
     positive <- options_file[options_file$Region == reg, 2]
     negative <- options_file[options_file$Region == reg, 2]
     print(negative)
