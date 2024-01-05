@@ -91,7 +91,7 @@ dnds2wgs.noncoding <- function(maf, RefElement, exclsamples, negbeta, trinucMuts
   sel_loc <- data.frame()
   sel_cv <- data.frame()
   
-  if (outp > 1) {
+  if (outp == 3) {
     message("[4] Running dNdSloc...")
     
     selfun_loc = function(j) {
@@ -124,7 +124,7 @@ dnds2wgs.noncoding <- function(maf, RefElement, exclsamples, negbeta, trinucMuts
   ## 5. dNdScv: Negative binomial regression (with or without covariates) + local synonymous mutations
   
   nbreg = nbregind = NULL
-  if (outp > 2) {
+  if (outp > 1) {
     
     message("[5] Running dNdScv...")
     

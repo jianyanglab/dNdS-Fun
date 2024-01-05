@@ -1,14 +1,20 @@
-
-dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThreshold, negativeThreshold, gene_group, globaldnds_outFile,
-                 genelevel_selloc_outFile, genelevel_selcv_outFile, iscv, score = "ture", score_database = None, model = 3, negmu = 1){
+dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
+                  genelevel_selcv_outFile, iscv, score = "ture", score_database = None, model = 3){
     library(parallel)
     library(data.table)
     library(MASS)
     library(doParallel)
-    positiveThreshold <- as.numeric(positiveThreshold)
-    negativeThreshold <- as.numeric(negativeThreshold)
-    negbeta <- as.numeric(negmu)
+    options_file <- read.table("Dichotomy.GRCh37.log", header = TRUE, stringsAsFactors = FALSE)
+    positive <- options_file[options_file$Region == reg, 2]
+    negative <- options_file[options_file$Region == reg, 2]
+    positiveThreshold <- options_file[options_file$Region == reg, 3]
+    negativeThreshold <- options_file[options_file$Region == reg, 3]
+    if (is.null(positive) || is.null(negativeThreshold)){
+        error_message <- "Please enter the correct reg option."
+        stop(error_message)
+    }
     model <- as.character(model)
+    iscv = NULL
     elements_list=NULL
     cv=NULL
     max_muts_per_element_per_sample=3
@@ -16,12 +22,14 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
     maf_data <- fread(mutsFile,header = FALSE)
     if(model=="1"){
         outp=1
-    }else{
+    } else if (model=="2")
+        outp=2
+    else{
         outp=3
     }
 
     score <- toupper(score)
-    if (score == "FALSE" and score_database == None){
+    if (score == "FALSE" & score_database == None){
       error_message <- "Please enter score_database file."
       stop(error_message)
     }
@@ -80,7 +88,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
                 input_data_comparison <- paste(first_four_columns, collapse = "")
                 chr_num <- gsub("\\D", "", row_data[,2])
                 postion <- row_data[,3]
-                commend <- paste0("tabix -h "score_database"/whole_genome_SNVs.tsv.gz.",chr_name,".gz.rankRawScore.gz ",chr_num,":",as.integer(postion),"-",as.integer(postion),"| grep -v \"^#\"")
+                commend <- paste0("tabix -h ",score_database,"/whole_genome_SNVs.tsv.gz.",chr_name,".gz.rankRawScore.gz ",chr_num,":",as.integer(postion),"-",as.integer(postion),"| grep -v \"^#\"")
                 database <- system(commend, intern = TRUE)
                 count <- 0
                 for (database_row in database) {
@@ -261,16 +269,42 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
     if(model=="1"){
         globaldnds <- CADD_dndsWGSout$globaldnds
         ####output of globaldnds
-        info <- c(positive,negative,positiveThreshold,negativeThreshold,gene_group,negmu,iscv)
+        info <- c(positive,negative,positiveThreshold,negativeThreshold,iscv)
         globaldnds_res <- as.data.frame(matrix(c(unlist(globaldnds),info),nrow=1))
         colnames(globaldnds_res) <- c("mle","ci_low","ci_high","AIC","deviance",
                                     "overdis_chisq","overdis_ratio","overdis_p",
                                     "mle_qua","ci_low_qua","ci_high_qua",
                                     "positive","negative","positiveThreshold","negativeThreshold",
-                                    "gene_group","negbeta","iscv")
+                                    "negbeta","iscv")
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
 
-    }else{
+    } else if (model=="2"){
+        globaldnds <- CADD_dndsWGSout$globaldnds
+        sel_cv <- CADD_dndsWGSout$sel_cv
+        annotmuts <- CADD_dndsWGSout$annotmuts
+        genemuts <- CADD_dndsWGSout$genemuts
+        mle_submodel <- CADD_dndsWGSout$mle_submodel
+        nbreg <- CADD_dndsWGSout$nbreg
+        nbregind <- CADD_dndsWGSout$nbregind
+        possmodel <- CADD_dndsWGSout$poissmodel
+
+        ####output of globaldnds
+        info <- c(positive,negative,positiveThreshold,negativeThreshold,iscv)
+        globaldnds_res <- as.data.frame(matrix(c(unlist(globaldnds),info),nrow=1))
+        colnames(globaldnds_res) <- c("mle","ci_low","ci_high","AIC","deviance",
+                                    "overdis_chisq","overdis_ratio","overdis_p",
+                                    "mle_qua","ci_low_qua","ci_high_qua",
+                                    "positive","negative","positiveThreshold","negativeThreshold",
+                                    "negbeta","iscv")
+        write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
+
+        ####output of sel_cv
+        selcv_res <- as.data.frame(sel_cv)
+        write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
+
+
+    }    
+    else{
         globaldnds <- CADD_dndsWGSout$globaldnds
         sel_cv <- CADD_dndsWGSout$sel_cv
         sel_loc <- CADD_dndsWGSout$sel_loc
@@ -282,18 +316,18 @@ dNdSFun <- function(mutsFile,refDb_element, reg, positive, negative, positiveThr
         possmodel <- CADD_dndsWGSout$poissmodel
 
         ####output of globaldnds
-        info <- c(positive,negative,positiveThreshold,negativeThreshold,gene_group,negmu,iscv)
+        info <- c(positive,negative,positiveThreshold,negativeThreshold,iscv)
         globaldnds_res <- as.data.frame(matrix(c(unlist(globaldnds),info),nrow=1))
         colnames(globaldnds_res) <- c("mle","ci_low","ci_high","AIC","deviance",
                                     "overdis_chisq","overdis_ratio","overdis_p",
                                     "mle_qua","ci_low_qua","ci_high_qua",
                                     "positive","negative","positiveThreshold","negativeThreshold",
-                                    "gene_group","negbeta","iscv")
+                                    "negbeta","iscv")
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
 
         ####output of sel_loc
         selloc_res <- as.data.frame(sel_loc)
-        write.table(selloc_res,genelevel_selloc_outFile,sep="\t",row.names=F,quote=F)
+        write.table(selloc_res,"dNdS_CADD.element.nb.out",sep="\t",row.names=F,quote=F)
 
         ####output of sel_cv
         selcv_res <- as.data.frame(sel_cv)
