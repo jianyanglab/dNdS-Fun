@@ -2,7 +2,6 @@ rm(list=ls())
 library(MASS)
 ######### global_dnds
 dnds2wgs.noncoding <- function(maf, RefElement, exclsamples, negbeta, trinucMuts, outp){
-  print('3')
 
   annot <- maf
   #annot <- annot[order(annot$sampleID, annot$chr, annot$pos),]
