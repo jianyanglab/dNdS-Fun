@@ -4,7 +4,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     library(data.table)
     library(MASS)
     library(doParallel)
-    options_file <- read.table("https://raw.githubusercontent.com/dNdSFun/blob/main/R/Dichotomy.GRCh37.log", header = TRUE, stringsAsFactors = FALSE)
+    options_file <- read.table("https://raw.githubusercontent.com/dNdSFun/main/R/Dichotomy.GRCh37.log", header = TRUE, stringsAsFactors = FALSE)
     positive <- options_file[options_file$Region == reg, 2]
     negative <- options_file[options_file$Region == reg, 2]
     print(negative)
