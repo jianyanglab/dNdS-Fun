@@ -1,5 +1,5 @@
 dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
-                  genelevel_selcv_outFile, iscv, score = "ture", score_database = None, model = 3){
+                  genelevel_selcv_outFile, iscv, score = "ture", score_database = NULL, model = 3){
     library(parallel)
     library(data.table)
     library(MASS)
@@ -7,10 +7,8 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     options_file <- read.table(file("https://raw.githubusercontent.com/jianyanglab/dNdSFun/main/R/Dichotomy.GRCh37.log"), header = TRUE, stringsAsFactors = FALSE)
     positive <- options_file[options_file$Region == reg, 2]
     negative <- options_file[options_file$Region == reg, 2]
-    print(negative)
     positiveThreshold <- options_file[options_file$Region == reg, 3]
     negativeThreshold <- options_file[options_file$Region == reg, 3]
-    print(negativeThreshold)
     if (is.null(positive) || is.null(negativeThreshold)){
         error_message <- "Please enter the correct reg option."
         stop(error_message)
@@ -31,7 +29,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     }
 
     score <- toupper(score)
-    if (score == "FALSE" & score_database == None){
+    if (score == "FALSE" & is.null(score_database)){
       error_message <- "Please enter score_database file."
       stop(error_message)
     }
