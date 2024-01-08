@@ -70,6 +70,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     result = foreach::foreach(data = thread_data) %dopar2% {
         group <- data[[1]]
         RefElement <- data[[2]]
+        print("okay")
         if (score == "FALSE"){
             # STEPT2 Add score to input
             chr_name <- group[1,2]
@@ -116,7 +117,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         }else{
             maf <- na.omit(group)
         }
-
+        print("okay1")
         # Step 1: Variables required
         message("Step 1: Loading the variables required ......")
         # [Input] Gene list (The user can input a gene list as a character vector)
