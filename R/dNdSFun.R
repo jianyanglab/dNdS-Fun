@@ -1,10 +1,10 @@
 dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
-                  genelevel_selcv_outFile, iscv, score = "ture", score_database = NULL, model = 3){
+                  genelevel_selcv_outFile, iscv = NULL, score = "false", score_database = NULL, model = 3){
     library(parallel)
     library(data.table)
     library(MASS)
     library(doParallel)
-    options_file <- read.table(file("https://raw.githubusercontent.com/jianyanglab/dNdSFun/main/R/Dichotomy.GRCh37.log"), header = TRUE, stringsAsFactors = FALSE)
+    options_file <- read.table("Dichotomy.GRCh37.log", header = TRUE, stringsAsFactors = FALSE)
     positive <- options_file[options_file$Region == reg, 2]
     negative <- options_file[options_file$Region == reg, 2]
     positiveThreshold <- options_file[options_file$Region == reg, 3]
@@ -14,6 +14,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         stop(error_message)
     }
     model <- as.character(model)
+    negbeta <- 1
     iscv = NULL
     elements_list=NULL
     cv=NULL
@@ -117,7 +118,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         }else{
             maf <- na.omit(group)
         }
-        print("okay1")
+        print("okay")
         # Step 1: Variables required
         message("Step 1: Loading the variables required ......")
         # [Input] Gene list (The user can input a gene list as a character vector)
@@ -270,13 +271,15 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     if(model=="1"){
         globaldnds <- CADD_dndsWGSout$globaldnds
         ####output of globaldnds
-        info <- c(positive,negative,positiveThreshold,negativeThreshold,iscv)
+        print('1')
+        info <- c(positive,negative,positiveThreshold,negativeThreshold,negbeta)
         globaldnds_res <- as.data.frame(matrix(c(unlist(globaldnds),info),nrow=1))
         colnames(globaldnds_res) <- c("mle","ci_low","ci_high","AIC","deviance",
                                     "overdis_chisq","overdis_ratio","overdis_p",
                                     "mle_qua","ci_low_qua","ci_high_qua",
                                     "positive","negative","positiveThreshold","negativeThreshold",
-                                    "negbeta","iscv")
+                                    "negbeta")
+        print('2')
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
 
     } else if (model=="2"){
@@ -290,13 +293,13 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         possmodel <- CADD_dndsWGSout$poissmodel
 
         ####output of globaldnds
-        info <- c(positive,negative,positiveThreshold,negativeThreshold,iscv)
+        info <- c(positive,negative,positiveThreshold,negativeThreshold,negbeta)
         globaldnds_res <- as.data.frame(matrix(c(unlist(globaldnds),info),nrow=1))
         colnames(globaldnds_res) <- c("mle","ci_low","ci_high","AIC","deviance",
                                     "overdis_chisq","overdis_ratio","overdis_p",
                                     "mle_qua","ci_low_qua","ci_high_qua",
                                     "positive","negative","positiveThreshold","negativeThreshold",
-                                    "negbeta","iscv")
+                                    "negbeta")
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
 
         ####output of sel_cv
@@ -317,13 +320,13 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         possmodel <- CADD_dndsWGSout$poissmodel
 
         ####output of globaldnds
-        info <- c(positive,negative,positiveThreshold,negativeThreshold,iscv)
+        info <- c(positive,negative,positiveThreshold,negativeThreshold,negbeta)
         globaldnds_res <- as.data.frame(matrix(c(unlist(globaldnds),info),nrow=1))
         colnames(globaldnds_res) <- c("mle","ci_low","ci_high","AIC","deviance",
                                     "overdis_chisq","overdis_ratio","overdis_p",
                                     "mle_qua","ci_low_qua","ci_high_qua",
                                     "positive","negative","positiveThreshold","negativeThreshold",
-                                    "negbeta","iscv")
+                                    "negbeta")
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
 
         ####output of sel_loc
@@ -336,5 +339,3 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     }
 
 }
-
-

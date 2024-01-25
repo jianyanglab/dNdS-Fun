@@ -15,6 +15,8 @@ This experiments information shows a breif primaryly screening for significant (
 
 ## 2. Quality control of CRISPR screen in K562
 The statistics of comparisons are listed in Table 1 and Table 2. The corresponding fastq files in each row are listed in Table 3.
+![Example_Pie](Quality_Control_1.png)
+
 [png](Quality_Control_1.png)
 [png](Quality_Control_2.png)
 [png](Quality_Control_3.png)
