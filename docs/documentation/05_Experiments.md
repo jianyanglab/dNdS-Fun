@@ -17,7 +17,9 @@ This experiments information shows a breif primaryly screening for significant (
 The statistics of comparisons are listed in Table 1 and Table 2. The corresponding fastq files in each row are listed in Table 3.
 
 ![Example_Pie](Quality_Control_1.png)
+
 ![Example_Pie](Quality_Control_2.png)
+
 ![Example_Pie](Quality_Control_3.png)
 
 ## 3. Results of CRISPR screen in K562 (Negative selection with RRA method)
