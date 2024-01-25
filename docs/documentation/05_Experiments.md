@@ -9,18 +9,16 @@ This experiments information shows a breif primaryly screening for significant (
 ## 1. Workflow of CRISPR screen 
 `dNdSFun` are available for two types of input data:
 - Somatic mutation data with functional impact scores (Annotated in six columns).
-- Somatic mutation data without functional impact scores. (This type data are required an additional CADD score data [link](https://jianyanglab.github.io/dNdSFun/documentation/03_data.html). Place it in the path specified by our software or provide the software with a correct path to find it.) 
-[png](Workflow_of_CRISPR_screen.png)
+- Somatic mutation data without functional impact scores. (This type data are required an additional [CADD score data](https://jianyanglab.github.io/dNdSFun/documentation/03_data.html). Place it in the path specified by our software or provide the software with a correct path to find it.) 
+![Example_Pie](Workflow_of_CRISPR_screen.png)
 
 
 ## 2. Quality control of CRISPR screen in K562
 The statistics of comparisons are listed in Table 1 and Table 2. The corresponding fastq files in each row are listed in Table 3.
+
 ![Example_Pie](Quality_Control_1.png)
-
-[png](Quality_Control_1.png)
-[png](Quality_Control_2.png)
-[png](Quality_Control_3.png)
-
+![Example_Pie](Quality_Control_2.png)
+![Example_Pie](Quality_Control_3.png)
 
 ## 3. Results of CRISPR screen in K562 (Negative selection with RRA method)
 This result will be update when the article is accepted.

@@ -29,8 +29,8 @@ Parameters of `dNdSFun`
 (revised) - `genelevel_selcv_outFile`:
 - `genelevel_outFile`: The output of gene/element-level selection estimation.
 - `iscv`: The covariates parameter. The default is NULL. This parameter is designed to use covariates to reduce the uncertainty in the variation of the mutation rate across genes. However, current no covariates is currently suitable for the dNdSFun model. We only kept the NULL parameter until it's available.
-- `score`: Select whether to add score value to mutsFile. The option type is bool and the default value is ture (if there is no score value in mutsFile, please set this to false).
-- `score_database`: The data file is used to obtain score values.
+- `score`: A bool variable for informing software whether the input mutsFile has the column named "score". This field means functional impact score for somatic mutation. Default is true (We suppose your mutsFile includes this column). If this field is missing, please set it as "false", then this parameter should be combined with the parameter "score database" (showing below).
+- `score_database`: This database is used to obtain the score value for mutsFile when "socre" column is missing. If your "score" parameter is set as false, please download the [data](https://jianyanglab.github.io/dNdSFun/documentation/03_data.html) for input.
 - `model`: A numeric variable to determine whether the gene/element-level analysis could be conducted. If the variable equal to 1, it only estimate the global selection, or it would estimate the global and gene/element-level selection.
 
 
