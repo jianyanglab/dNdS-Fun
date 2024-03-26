@@ -52,8 +52,8 @@ ui:
 
 social:
   github:
-    user: LeonSong1995
-    repo: MeDuSA
+    user: jianyanglab
+    repo: dNdSFun
   twitter:
     enabled: false
     via:
