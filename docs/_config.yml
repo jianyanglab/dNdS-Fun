@@ -37,8 +37,8 @@ ui:
   header:
     trianglify: true
     light:
-      color1: "#4B0082"
-      color2: "#8A2BE2"
+      color1: "#6A5ACD"
+      color2: "#7B68EE"
     dark:
       color1: "#080331"
       color2: "#673051"
