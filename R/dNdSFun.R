@@ -2,8 +2,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
                   genelevel_selcv_outFile, iscv = NULL, score = "false", 
                   score_database = NULL, model = 2, thread_num = 22) 
 {
-    start_time <- Sys.time()
-    print(start_time)
 
     library(parallel)
     library(data.table)
@@ -181,9 +179,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
             write.table(output, file = outfile, sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
             output <- data.frame()
         }
-
-        cat("Adding score time: ", end = '\t')
-        print(Sys.time() - start_time)
     }
 
     rm(maf_data, grouped_data)
@@ -248,19 +243,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         rm(sorted_keys, data_sorted, 
             data_classified, RefElement_array)
 
-        if (data == 1) {
-            sink(type = "output")  # 将输出流重新定向回控制台
-            cat("Loading time: ", end = '\t')
-            print(Sys.time() - start_time)
-            sink()  # 恢复默认的输出流
-        }
-        
-        # Step 1: Variables required
-        if (data == 1) {
-            sink(type = "output")  # 将输出流重新定向回控制台
-            cat("[1] Loading the variables required......\n\n")
-            sink()  # 恢复默认的输出流
-        }
         # [Input] Gene list (The user can input a gene list as a character vector)
         if (is.null(elements_list)) {
             elements_list = sapply(RefElement, function(x) x$gene_name) # All genes [default]
@@ -352,13 +334,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
 
         ref3_cod <- mut3_cod <- wrong_ref <- impact <- codonsub <- array(NA, nrow(maf))
 
-        if (data == 1) {
-            sink(type = "output")  # 将输出流重新定向回控制台
-            cat("Dealing data time: ", end = '\t')
-            print(Sys.time() - start_time)
-            sink()  # 恢复默认的输出流
-        }
-        
+
         for (j in 1:nrow(maf)) {
             
             elementidx <- maf$elementidx[j]
@@ -380,12 +356,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
             # if (round(j/1e4)==(j/1e4)) { message(sprintf('    %0.3g%% ...', round(j/nrow(maf),2)*100)) }
         }
 
-        if (data == 1) {
-            sink(type = "output")  # 将输出流重新定向回控制台
-            cat("Calculating time: ", end = '\t')
-            print(Sys.time() - start_time)
-            sink()  # 恢复默认的输出流
-        }
 
         wrong_refbase <- NULL
         if (any(!is.na(wrong_ref))) {
@@ -480,20 +450,5 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         selcv_res <- as.data.frame(sel_cv)
         write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
     }
-    end_time <- Sys.time()
-    times <- end_time - start_time
-    cat("\nProgress finished time: ", end = '\t')
-    print(times)
-    cat("\n")
-    time_data <- times
-    newtime_data <- paste(mutsFile, '  :  ', time_data, "\n") 
-    file_path <- "../log/time_result.log"  # 替换为您的log文件路径
-    file_conn <- file(file_path, open = "a")
-
-    # 将数据追加到文件中
-    cat(newtime_data, file = file_conn, append = TRUE)
-
-    # 关闭文件连接
-    close(file_conn)
 
 }
