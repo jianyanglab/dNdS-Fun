@@ -80,7 +80,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         ncpu = min(chrs, thread_num, parallel::detectCores())
 
         cl = parallel::makeCluster(ncpu)
-        parallel::clusterExport(cl=cl, varlist=c("tmp_folder", "mutsFile"), envir=environment())
+        parallel::lustercExport(cl=cl, varlist=c("tmp_folder", "mutsFile"), envir=environment())
         registerDoParallel(cl)
         `%dopar2%` = foreach::`%dopar%`
         result = foreach::foreach(data = sub_block_keys) %dopar2% {
@@ -198,6 +198,8 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
 
     #Thread function
     chrs <- length(keys)
+    ncpu = min(chrs, thread_num, parallel::detectCores())
+    cl = parallel::makeCluster(ncpu)
     parallel::clusterExport(cl=cl, varlist=c("nt", "score", 
                                             "trinucMutsidx", "elements_list", 
                                             "cv", "max_muts_per_element_per_sample",
@@ -206,10 +208,10 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
                                             "negativeThreshold",
                                             "mutsFile",
                                             "refDb_element"), envir=environment())
-    ncpu = min(chrs, thread_num, parallel::detectCores())
+    
     message(sprintf("\nAccording to the environment, %d threads will be created for calculation.\n", ncpu))
 
-    cl = parallel::makeCluster(ncpu)
+    
     registerDoParallel(cl)
     `%dopar2%` = foreach::`%dopar%`
 
