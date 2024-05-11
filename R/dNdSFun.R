@@ -10,10 +10,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     negative <- options_file[options_file$Region == reg, 2]
     positiveThreshold <- options_file[options_file$Region == reg, 3]
     negativeThreshold <- options_file[options_file$Region == reg, 3]
-    # positive <- 0.5
-    # negative <- 0.5
-    # positiveThreshold <- 0.151779
-    # negativeThreshold <- 0.151779
     if (is.null(positive) || is.null(negativeThreshold)){
         error_message <- "Please enter the correct reg option."
         stop(error_message)
