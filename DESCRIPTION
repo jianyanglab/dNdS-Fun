@@ -13,6 +13,7 @@ Depends:
     MASS,
     parallel,
     doParallel,
+    BiocManager,
     R (>= 4.0.5)
-Imports: MASS, parallel, doParallel, data.table
+Imports: MASS, parallel, doParallel, data.table, BiocManager
 RoxygenNote: 7.2.3
