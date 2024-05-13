@@ -13,8 +13,6 @@ Depends:
     MASS,
     parallel,
     doParallel,
-    BiocManager,
-    GenomicRanges,
     R (>= 4.0.5)
-Imports: MASS, parallel, doParallel, data.table, BiocManager, GenomicRanges
+Imports: MASS, parallel, doParallel, data.table
 RoxygenNote: 7.2.3
