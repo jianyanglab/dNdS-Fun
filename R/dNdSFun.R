@@ -246,14 +246,14 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         # Load reference data of noncoding elements
         load(refDb_element) # gr_elements, RefElement
         data_classified <- split(RefElement, unlist(lapply(RefElement, "[[", "chr")))
+        rm(RefElement)
         sorted_keys <- names(data_classified)[order(as.numeric(gsub("chr", "", names(data_classified))))]
         data_sorted <- data_classified[sorted_keys]
+        rm(data_classified)
         RefElement_array <- lapply(data_sorted, identity)
-        
+        rm(data_sorted,)
         RefElement <- copy(RefElement_array[[data]])
-
-        rm(sorted_keys, data_sorted, 
-            data_classified, RefElement_array)
+        rm(sorted_keys, RefElement_array)
 
         
         # [Input] Gene list (The user can input a gene list as a character vector)
