@@ -16,7 +16,8 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     library(doParallel)
     library(foreach)
     library(iterators)
-    options_file <- read.table("Dichotomy.GRCh37.log", header = TRUE, stringsAsFactors = FALSE)
+    Dichotomy_path <- system.file("Dichotomy.GRCh37.log", package = "dNdSFun")
+    options_file <- read.table(Dichotomy_path, header = TRUE, stringsAsFactors = FALSE)
     positive <- options_file[options_file$Region == reg, 2]
     negative <- options_file[options_file$Region == reg, 2]
     positiveThreshold <- options_file[options_file$Region == reg, 3]
