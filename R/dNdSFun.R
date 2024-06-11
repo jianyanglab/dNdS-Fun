@@ -1,24 +1,17 @@
+# 以此类推，根据需要设置其他本地环境变量
+source("CADD_dndsWGS.NEG.R")
 
 dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
-                  genelevel_selcv_outFile, iscv = NULL, score = "true", 
+                  genelevel_selcv_outFile, iscv = NULL, score = "false", 
                   score_database = NULL, model = 2, thread_num = 22) 
 {
-    if (!requireNamespace("GenomicRanges", quietly = TRUE)) {
-        BiocManager::install("GenomicRanges")
-    }
-    
-    if (!requireNamespace("Biostrings", quietly = TRUE)) {
-        BiocManager::install("Biostrings")
-    }
-    
     library(parallel)
     library(data.table)
     library(MASS)
     library(doParallel)
     library(foreach)
     library(iterators)
-    Dichotomy_path <- system.file("Dichotomy.GRCh37.log", package = "dNdSFun")
-    options_file <- read.table(Dichotomy_path, header = TRUE, stringsAsFactors = FALSE)
+    options_file <- read.table("../log/Dichotomy.GRCh37.log", header = TRUE, stringsAsFactors = FALSE)
     positive <- options_file[options_file$Region == reg, 2]
     negative <- options_file[options_file$Region == reg, 2]
     positiveThreshold <- options_file[options_file$Region == reg, 3]
@@ -63,13 +56,32 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         warning(sprintf("Your input file has %d chromosomes, please check.", length(grouped_data)))
     }
 
+    tmp_folder <- paste0(reg, "_", nrow(maf_data), "_score_tmp")
+    if (!file.exists(tmp_folder)) {
+        dir.create(tmp_folder)
+    }
+
+    # Load reference data of noncoding elements
+    load(refDb_element) # gr_elements, RefElement
+
+    data_classified <- split(RefElement, unlist(lapply(RefElement, "[[", "chr")))
+    rm(RefElement)
+    sorted_keys <- names(data_classified)[order(as.numeric(gsub("chr", "", names(data_classified))))]
+    data_sorted <- data_classified[sorted_keys]
+    rm(data_classified)
+    RefElement_array <- lapply(data_sorted, identity)
+    rm(data_sorted)
+    for (idx in 1:22)
+    {
+        assign(paste0("RefElement_", idx), RefElement_array[[idx]])
+        save(list = paste0("RefElement_", idx), file = paste0(tmp_folder, "/RefElement_", idx, ".rda"))
+    }
+    save(gr_elements, file = paste0(tmp_folder, "/gr_elements.rda"))
+    rm(RefElement_array)
+    rm(gr_elements)
+
     if (score == "FALSE") 
     {   
-        tmp_folder <- paste0(reg, "_", nrow(maf_data), "_score_tmp")
-        if (!file.exists(tmp_folder)) {
-            dir.create(tmp_folder)
-        }
-        
         sorted_keys <- names(grouped_data)[order(as.numeric(gsub("chr", "", names(grouped_data))))]
         data_sorted <- grouped_data[sorted_keys]
         group_array <- lapply(data_sorted, identity)
@@ -87,7 +99,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         ncpu = min(chrs, thread_num, parallel::detectCores())
 
         cl = parallel::makeCluster(ncpu)
-        parallel::lustercExport(cl=cl, varlist=c("tmp_folder", "mutsFile"), envir=environment())
+        parallel::clusterExport(cl=cl, varlist=c("tmp_folder", "mutsFile"), envir=environment())
         registerDoParallel(cl)
         `%dopar2%` = foreach::`%dopar%`
         result = foreach::foreach(data = sub_block_keys) %dopar2% {
@@ -188,7 +200,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
             write.table(output, file = outfile, sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
             output <- data.frame()
         }
-
     }
 
     rm(maf_data, grouped_data)
@@ -206,6 +217,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     #Thread function
     chrs <- length(keys)
     ncpu = min(chrs, thread_num, parallel::detectCores())
+    message(sprintf("\nAccording to the environment, %d threads will be created for calculation.\n", ncpu))
     cl = parallel::makeCluster(ncpu)
     parallel::clusterExport(cl=cl, varlist=c("nt", "score", 
                                             "trinucMutsidx", "elements_list", 
@@ -213,15 +225,10 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
                                             "max_element_muts_per_sample", 
                                             "positiveThreshold", 
                                             "negativeThreshold",
-                                            "mutsFile",
-                                            "refDb_element"), envir=environment())
-    
-    message(sprintf("\nAccording to the environment, %d threads will be created for calculation.\n", ncpu))
+                                            "mutsFile"), envir=environment())
 
-    
     registerDoParallel(cl)
     `%dopar2%` = foreach::`%dopar%`
-
     result = foreach::foreach(data = keys) %dopar2% {
         library(data.table)
         library(GenomicRanges)
@@ -233,29 +240,25 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         } else  {
             maf_data <- fread(mutsFile,header = FALSE)
             grouped_data <- split(maf_data, maf_data[, 2])
+            rm(maf_data)
             sorted_keys <- names(grouped_data)[order(as.numeric(gsub("chr", "", names(grouped_data))))]
             data_sorted <- grouped_data[sorted_keys]
+            rm(grouped_data)
             group_array <- lapply(data_sorted, identity)
-
-            group <- group_array[[data]]
-            maf <- copy(na.omit(group))
-            rm(maf_data, grouped_data, sorted_keys, 
-            data_sorted, group_array, group)
+            rm(data_sorted, sorted_keys)
+            maf <- copy(na.omit(group_array[[data]]))
+            rm(group_array)
         }
 
-        # Load reference data of noncoding elements
-        load(refDb_element) # gr_elements, RefElement
-        data_classified <- split(RefElement, unlist(lapply(RefElement, "[[", "chr")))
-        rm(RefElement)
-        sorted_keys <- names(data_classified)[order(as.numeric(gsub("chr", "", names(data_classified))))]
-        data_sorted <- data_classified[sorted_keys]
-        rm(data_classified)
-        RefElement_array <- lapply(data_sorted, identity)
-        rm(data_sorted,)
-        RefElement <- copy(RefElement_array[[data]])
-        rm(sorted_keys, RefElement_array)
+        refDb_element <- paste0(tmp_folder, "/RefElement_", data, ".rda")
 
+        ref_name <- load(refDb_element)
+        load(paste0(tmp_folder, "/gr_elements.rda"))
+
+        RefElement <- get(ref_name)
+        rm(ref_name)
         
+        # Step 1: Variables required
         # [Input] Gene list (The user can input a gene list as a character vector)
         if (is.null(elements_list)) {
             elements_list = sapply(RefElement, function(x) x$gene_name) # All genes [default]
@@ -346,7 +349,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         }
 
         ref3_cod <- mut3_cod <- wrong_ref <- impact <- codonsub <- array(NA, nrow(maf))
-
         
         for (j in 1:nrow(maf)) {
             
@@ -369,7 +371,6 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
             # if (round(j/1e4)==(j/1e4)) { message(sprintf('    %0.3g%% ...', round(j/nrow(maf),2)*100)) }
         }
 
-
         wrong_refbase <- NULL
         if (any(!is.na(wrong_ref))) {
             if (mean(!is.na(wrong_ref)) < 0.1) { # If fewer than 10% of mutations have a wrong reference base, we warn the user
@@ -387,13 +388,14 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     # Closing thread cluster
     stopCluster(cl)
 
+    unlink(tmp_folder, recursive = TRUE)
+
     maf_result <- lapply(result, function(x) x$maf)
     maf <- do.call(rbind, maf_result)
     RefElement1 <- unlist(lapply(result, function(x) x$RefElement1), recursive = FALSE)
     # RefElement <- unlist(RefElement_result, recursive = FALSE)
     exclsamples <- unlist(lapply(result, function(x) x$exclsamples))
 
-    cat("\n")
     CADD_dndsWGSout <- dnds2wgs.noncoding(maf, RefElement1, exclsamples, negbeta, trinucMuts, outp)
 
     if(model=="1"){
@@ -463,5 +465,4 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         selcv_res <- as.data.frame(sel_cv)
         write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
     }
-
 }
