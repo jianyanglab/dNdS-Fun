@@ -1,10 +1,15 @@
-# 以此类推，根据需要设置其他本地环境变量
-source("CADD_dndsWGS.NEG.R")
-
 dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
-                  genelevel_selcv_outFile, iscv = NULL, score = "false", 
+                  genelevel_selcv_outFile, iscv = NULL, score = "true", 
                   score_database = NULL, model = 2, thread_num = 22) 
 {
+    if (!requireNamespace("GenomicRanges", quietly = TRUE)) {
+        BiocManager::install("GenomicRanges")
+    }
+    
+    if (!requireNamespace("Biostrings", quietly = TRUE)) {
+        BiocManager::install("Biostrings")
+    }
+
     library(parallel)
     library(data.table)
     library(MASS)
