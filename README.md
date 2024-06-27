@@ -14,8 +14,8 @@ devtools::install_github("jianyanglab/dNdSFun", build_vignettes=F)
 ```
 ### Work with code
   ####   Requirements
-
-Install the dNdSFun (R version > 4.0.5)
+```R
+# Install the dNdSFun (R version > 4.0.5)
 
 1.parallel
 2.data.tabl
@@ -25,7 +25,7 @@ Install the dNdSFun (R version > 4.0.5)
 6.GenomicRanges (install.packages("BiocManager") -> BiocManager::install("GenomicRanges"))
 7.Biostrings (BiocManager::install("Biostrings"))
 8.tabix
-
+```
 
 ## How to Use 
 See [tutorial.](https://jianyanglab.github.io/dNdSFun/)
