@@ -13,7 +13,7 @@ if (!requireNamespace("devtools", quietly = TRUE))
 devtools::install_github("jianyanglab/dNdSFun", build_vignettes=F)
 ```
 ### Work with code
-  **Requirements**
+  ####   Requirements
 ```R
 # Install the dNdSFun (R version > 4.0.5)
 
