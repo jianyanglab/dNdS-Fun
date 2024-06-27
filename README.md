@@ -13,17 +13,17 @@ if (!requireNamespace("devtools", quietly = TRUE))
 devtools::install_github("jianyanglab/dNdSFun", build_vignettes=F)
 ```
 ### Work with code
+**Requirements**
 ```R
-
-Requirements
+# Install the dNdSFun (R version > 4.0.5)
 
 1.parallel
 2.data.tabl
 3.MASS
 4.doParallel
 5.foreach
-6.GenomicRanges
-7.Biostrings
+6.GenomicRanges (install.packages("BiocManager") -> BiocManager::install("GenomicRanges"))
+7.Biostrings (BiocManager::install("Biostrings"))
 8.tabix
 ```
 
