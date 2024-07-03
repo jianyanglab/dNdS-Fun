@@ -1,5 +1,5 @@
 dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
-                  genelevel_selcv_outFile, iscv = NULL, score = "true", 
+                  genelevel_selcv_outFile, iscv = NULL, score = "false", 
                   score_database = NULL, model = 2, thread_num = 22) 
 {
     if (!requireNamespace("GenomicRanges", quietly = TRUE)) {
@@ -37,7 +37,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     maf_col <- ncol(maf_data)
     if (maf_col < 6)
     {
-        score <- "false"
+        score <- "true"
     }
     if(model=="1"){
         outp=1
@@ -48,7 +48,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     }
 
     score <- toupper(score)
-    if (score == "FALSE" & is.null(score_database))
+    if (score == "TRUE" & is.null(score_database))
     {
       error_message <- "Please enter score_database file."
       stop(error_message)
@@ -86,7 +86,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     rm(RefElement_array)
     rm(gr_elements)
 
-    if (score == "FALSE") 
+    if (score == "TRUE") 
     {   
         sorted_keys <- names(grouped_data)[order(as.numeric(gsub("chr", "", names(grouped_data))))]
         data_sorted <- grouped_data[sorted_keys]
@@ -240,7 +240,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         library(GenomicRanges)
         library(GenomeInfoDb)
 
-        if (score == "FALSE") {
+        if (score == "TRUE") {
             scoreFile <- paste0(tmp_folder, "/chr", data, "_all.txt")
             maf <- fread(scoreFile, header = FALSE)
         } else  {
