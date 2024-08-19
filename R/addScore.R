@@ -1,11 +1,8 @@
-addScore <- function(mutsFile, score_database = NULL, outFile)
+addScore <- function(mutsFile, score_database = NULL, outFile = "output")
 {
     library(data.table)
     library(doParallel)
 
-    if (is.null(outFile)) {
-        outFile <- "output"
-    }
     if (is.null(score_database))
     {
       error_message <- "Please enter score_database file."
