@@ -338,4 +338,5 @@ dNdSFun <- function(mutsFile, refDb_element, reg, globaldnds_outFile,
         selcv_res <- as.data.frame(sel_cv)
         write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
     }
+    message(sprintf('Analysis is complete!'))
 }

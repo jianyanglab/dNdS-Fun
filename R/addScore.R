@@ -13,7 +13,7 @@ addScore <- function(mutsFile, score_database = NULL, outFile = "output")
     if (!file.exists(tmp_folder)) {
         dir.create(tmp_folder)
     }
-
+    message(sprintf('Start adding scores, please wait...'))
     # 读取，分类文件
     maf_data <- fread(mutsFile,header = FALSE)
     grouped_data <- split(maf_data, maf_data[, 2]) # chr
