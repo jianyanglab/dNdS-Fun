@@ -3,6 +3,9 @@ addScore <- function(mutsFile, score_database = NULL, outFile)
     library(data.table)
     library(doParallel)
 
+    if (is.null(outFile)) {
+        outFile <- "output"
+    }
     if (is.null(score_database))
     {
       error_message <- "Please enter score_database file."
@@ -151,15 +154,6 @@ addScore <- function(mutsFile, score_database = NULL, outFile)
 
     rm(maf_data, grouped_data)
     unlink(tmp_folder, recursive = TRUE)
-}
-
-args <- commandArgs(trailingOnly = TRUE)
-mutsFile <- args[1]
-if (length(args) > 1)
-{
-  outFile <- args[2]
-} else 
-{
-  outFile <- "output"
+    message(sprintf('Add score is complete!'))
 }
 
