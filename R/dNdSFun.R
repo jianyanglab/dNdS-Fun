@@ -1,6 +1,6 @@
-dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
-                  genelevel_selcv_outFile, iscv = NULL, score = "false", 
-                  score_database = NULL, model = 2, thread_num = 22) 
+source("CADD_dndsWGS.NEG.R")
+dNdSFun <- function(mutsFile, refDb_element, reg, globaldnds_outFile,
+                  genelevel_selcv_outFile, iscv = NULL, model = 2, thread_num = 22) 
 {
     if (!requireNamespace("GenomicRanges", quietly = TRUE)) {
         BiocManager::install("GenomicRanges")
@@ -34,10 +34,12 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     max_muts_per_element_per_sample=3
     max_element_muts_per_sample=100000000
     maf_data <- fread(mutsFile,header = FALSE)
+    maf_data <- na.omit(maf_data)
     maf_col <- ncol(maf_data)
     if (maf_col < 6)
     {
-        score <- "true"
+        error_message <- "Please check your input file, it should has at least 6."
+        stop(error_message)
     }
     if(model=="1"){
         outp=1
@@ -47,167 +49,35 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         outp=3
     }
 
-    score <- toupper(score)
-    if (score == "TRUE" & is.null(score_database))
-    {
-      error_message <- "Please enter score_database file."
-      stop(error_message)
-    }
-
     # Group by the second column
     grouped_data <- split(maf_data, maf_data[, 2])
-    keys <- 1 : length(grouped_data)
+    chrs <- names(grouped_data)
+    filt_chrs <- chrs[grepl("^(chr)?([1-9]|1[0-9]|2[0-2])$", chrs)]
 
-    if (length(grouped_data) != 22) {
-        warning(sprintf("Your input file has %d chromosomes, please check.", length(grouped_data)))
-    }
-
-    tmp_folder <- paste0(reg, "_", nrow(maf_data), "_score_tmp")
+    tmp_folder <- paste0(reg, "_", nrow(maf_data), "_tmp")
     if (!file.exists(tmp_folder)) {
         dir.create(tmp_folder)
     }
 
     # Load reference data of noncoding elements
     load(refDb_element) # gr_elements, RefElement
-
     data_classified <- split(RefElement, unlist(lapply(RefElement, "[[", "chr")))
     rm(RefElement)
-    sorted_keys <- names(data_classified)[order(as.numeric(gsub("chr", "", names(data_classified))))]
+    RefNames <- names(data_classified)
+    sorted_keys <- RefNames[order(as.numeric(gsub("chr", "", RefNames)))]
     data_sorted <- data_classified[sorted_keys]
     rm(data_classified)
     RefElement_array <- lapply(data_sorted, identity)
     rm(data_sorted)
-    for (idx in 1:22)
+    for (idx in filt_chrs)
     {
-        assign(paste0("RefElement_", idx), RefElement_array[[idx]])
+        idx_num <- as.numeric(gsub("chr", "", idx))
+        assign(paste0("RefElement_", idx), RefElement_array[[idx_num]])
         save(list = paste0("RefElement_", idx), file = paste0(tmp_folder, "/RefElement_", idx, ".rda"))
     }
     save(gr_elements, file = paste0(tmp_folder, "/gr_elements.rda"))
     rm(RefElement_array)
     rm(gr_elements)
-
-    if (score == "TRUE") 
-    {   
-        sorted_keys <- names(grouped_data)[order(as.numeric(gsub("chr", "", names(grouped_data))))]
-        data_sorted <- grouped_data[sorted_keys]
-        group_array <- lapply(data_sorted, identity)
-
-        # generate data chunk
-        lengths_array <- sapply(group_array, nrow)
-        min_length_index <- which.min(lengths_array)
-        min <- nrow(group_array[[min_length_index]])
-        sub_blocks <- sapply(lengths_array, function(length) ceiling(length / min))
-        sub_block_keys <- unlist(sapply(1:length(sub_blocks), function(i) paste0(i, ".", 1:sub_blocks[i])))
-        
-        rm(sorted_keys, data_sorted, group_array)
-
-        chrs <- length(keys)
-        ncpu = min(chrs, thread_num, parallel::detectCores())
-
-        cl = parallel::makeCluster(ncpu)
-        parallel::clusterExport(cl=cl, varlist=c("tmp_folder", "mutsFile"), envir=environment())
-        registerDoParallel(cl)
-        `%dopar2%` = foreach::`%dopar%`
-        result = foreach::foreach(data = sub_block_keys) %dopar2% {
-            library(data.table)
-
-            split_data <- strsplit(data, "\\.")
-            chr_num <- as.numeric(split_data[[1]][1])
-            chr_name <- paste0("chr", chr_num)
-            chunk <- as.numeric(split_data[[1]][2])
-
-            db_file <- paste0(tmp_folder, "/database_", data, ".txt")
-            split_file <- paste0(tmp_folder, "/data_", data, ".txt")
-
-            maf_data <- fread(mutsFile,header = FALSE)
-            grouped_data <- split(maf_data, maf_data[, 2])
-            sorted_keys <- names(grouped_data)[order(as.numeric(gsub("chr", "", names(grouped_data))))]
-            data_sorted <- grouped_data[sorted_keys]
-            group_array <- lapply(data_sorted, identity)
-
-            split_group <- lapply(group_array, function(data) {
-            split_data <- split(data, 
-                      rep(1:ceiling(nrow(data) / min), 
-                      each = min, 
-                      length.out = nrow(data)))
-            })
-            group <- copy(split_group[[chr_num]][[chunk]])
-
-            rm(maf_data, grouped_data, sorted_keys, 
-                data_sorted, group_array, split_group)
-            
-            group_file <- paste0(tmp_folder, "/chunk_", data, ".txt")
-            write.table(group, file = group_file, sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
-
-            miss_file_path <- "missing.txt"
-            tbi_file <- paste0(score_database, "/whole_genome_SNVs.tsv.gz.", chr_name, ".gz.rankRawScore.gz")
-            command <- paste0("cat ", group_file, " | ",
-                            "awk -v var=", chr_name, " '{if($2==var)print $2\":\"$3\"-\"$3}' | ",
-                            "sed 's/^chr//g'",
-                            " > ", split_file)
-            result <- system(command, intern = TRUE)
-
-            command <- paste0("cat ", split_file, " | ",
-                              "xargs tabix ", tbi_file, " | ",
-                              "awk '{print $3,$4,$5}'",
-                              " > ", db_file)
-            result <- system(command, intern = TRUE)
-            database <- fread(db_file, header = FALSE)
-
-            maf <- data.frame()
-            for (data_idx in 1:nrow(group)) 
-            {   
-                find <- FALSE
-                data_row <- group[data_idx,]
-                data_gene1 <- data_row[,4]
-                data_gene2 <- data_row[,5]
-                position <- data_row[, 3]
-
-                if (!is.na(as.integer(position)))
-                {
-                    start_idx <- data_idx * 3 - 2
-                    end_idx <- data_idx * 3
-                    for (db_idx in start_idx:end_idx)
-                    {
-                        db_row <- database[db_idx, ]
-                        db_gene1 <- db_row[, 1]
-                        db_gene2 <- db_row[, 2]
-                        if (data_gene1 == db_gene1 && data_gene2 == db_gene2)
-                        {
-                            input_result = c(data_row, db_row[, 3])
-                            colnames(maf) <- colnames(input_result)
-                            maf <- rbind(maf, input_result)
-                            find <- TRUE
-                            break
-                        }
-                    }
-                }
-                if (!find)
-                {
-                    row_string <- paste(data_row, collapse = " ")
-                    message <- paste0(row_string, " not found.")
-                    writeLines(message, miss_file_path)
-                }
-            }
-            maf <- na.omit(maf)
-            outfile <- paste0(tmp_folder, "/", data, ".txt")
-            write.table(maf, file = outfile, sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
-            rm(group, database, maf)
-        }
-        stopCluster(cl)
-
-        numbers <- sapply(strsplit(sub_block_keys, "\\."), function(x) as.numeric(x[1]))
-        output <- data.frame()
-        for (i in unique(numbers)) {
-            files <- sub_block_keys[numbers == i]
-            data <- do.call(rbind, lapply(files, function(file) read.table(paste0(tmp_folder, "/", file, ".txt"), header = FALSE)))
-            output <- rbind(output, data)
-            outfile <- paste0(tmp_folder, "/chr", i, "_all.txt")
-            write.table(output, file = outfile, sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
-            output <- data.frame()
-        }
-    }
-
     rm(maf_data, grouped_data)
 
     # Define trinucleotide contexts
@@ -221,11 +91,11 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
     trinucMutsidx <- setNames(1:192, trinucMuts)
 
     #Thread function
-    chrs <- length(keys)
-    ncpu = min(chrs, thread_num, parallel::detectCores())
+    chr_nums <- length(filt_chrs)
+    ncpu = min(chr_nums, thread_num, parallel::detectCores())
     message(sprintf("\nAccording to the environment, %d threads will be created for calculation.\n", ncpu))
     cl = parallel::makeCluster(ncpu)
-    parallel::clusterExport(cl=cl, varlist=c("nt", "score", 
+    parallel::clusterExport(cl=cl, varlist=c("nt", 
                                             "trinucMutsidx", "elements_list", 
                                             "cv", "max_muts_per_element_per_sample",
                                             "max_element_muts_per_sample", 
@@ -235,32 +105,20 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
 
     registerDoParallel(cl)
     `%dopar2%` = foreach::`%dopar%`
-    result = foreach::foreach(data = keys) %dopar2% {
+    result = foreach::foreach(data = filt_chrs) %dopar2% {
         library(data.table)
         library(GenomicRanges)
         library(GenomeInfoDb)
 
-        if (score == "TRUE") {
-            scoreFile <- paste0(tmp_folder, "/chr", data, "_all.txt")
-            maf <- fread(scoreFile, header = FALSE)
-        } else  {
-            maf_data <- fread(mutsFile,header = FALSE)
-            grouped_data <- split(maf_data, maf_data[, 2])
-            rm(maf_data)
-            sorted_keys <- names(grouped_data)[order(as.numeric(gsub("chr", "", names(grouped_data))))]
-            data_sorted <- grouped_data[sorted_keys]
-            rm(grouped_data)
-            group_array <- lapply(data_sorted, identity)
-            rm(data_sorted, sorted_keys)
-            maf <- copy(na.omit(group_array[[data]]))
-            rm(group_array)
-        }
+        maf_data <- fread(mutsFile,header = FALSE)
+        grouped_data <- split(maf_data, maf_data[, 2])
+        rm(maf_data)
+        maf <- copy(na.omit(grouped_data[[data]]))
+        rm(grouped_data)
 
         refDb_element <- paste0(tmp_folder, "/RefElement_", data, ".rda")
-
         ref_name <- load(refDb_element)
         load(paste0(tmp_folder, "/gr_elements.rda"))
-
         RefElement <- get(ref_name)
         rm(ref_name)
         
@@ -289,6 +147,12 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
             warning(sprintf("%0.0f rows in the input table contained NA entries and have been removed. Please investigate.",length(unique(idxna[,1]))))
         }
 
+        maf$chr <- ifelse(
+            grepl("^chr", maf$chr),  # 检查是否以"chr"开头
+            maf$chr,                 # 如果以"chr"开头，则保持不变
+            paste0("chr", maf$chr)   # 否则，在原字符串前添加"chr"
+        )
+
         # Expanding the reference sequences [for faster access]
         for (j in 1:length(RefElement)) {
             RefElement[[j]]$seq_element <- base::strsplit(as.character(RefElement[[j]]$seq_element), split="")[[1]]
@@ -297,16 +161,20 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         }
 
         idx <- setNames(1:length(RefElement), sapply(RefElement,function(x) x$gene_name))
+        
         gr_elements_idx <- idx[gr_elements$names]
         # Start and end position of each mutation
         maf$end <- maf$start <- maf$pos
         # Mapping mutations to genes
         gr_muts <- GenomicRanges::GRanges(maf$chr, IRanges::IRanges(maf$start,maf$end))
         ol <- as.data.frame(GenomicRanges::findOverlaps(gr_muts, gr_elements, type="any", select="all"))
+        if (nrow(ol) == 0) {
+            stop("The overlap data frame is empty.")
+        }
+
         maf <- maf[ol[,1],] # Duplicating subs if they hit more than one gene
         maf$elementidx <- gr_elements_idx[ol[,2]]
         maf$element <- sapply(RefElement,function(x) x$gene_name)[maf$elementidx]
-        
         #maf <- unique(maf)
         # Excluding samples with more than the defined maximum number of mutations per sample (optional)
         nsampl <- sort(table(maf$sampleID))
@@ -334,7 +202,7 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
             maf <- maf[-unique(idxna[,1]),]
             warning(sprintf("%0.0f mutations contained NA impact score values and have been removed. Please investigate.",length(unique(idxna[,1]))))
         }
-        
+
         maf$ref_cod <- maf$ref
         maf$mut_cod <- maf$alt
         compnt <- setNames(rev(nt), nt)
@@ -472,3 +340,20 @@ dNdSFun <- function(mutsFile,refDb_element, reg, globaldnds_outFile,
         write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
     }
 }
+
+reg <- "intergenic-gencode"
+args <- commandArgs(trailingOnly = TRUE)
+mutsFile <- args[1]
+rdaPath <- "/storage/yangjianLab/zhengmengyue/PROJECT/05_SELECTION/14_ToCPP/STEP3_SELECTION/data/RefElement/GRCh37/"
+refDb_element <- paste0(rdaPath, 'CADD.', reg, '.GRCh37.rda')
+
+globaldnds_outFile <- 'dNdS_CADD.global.out'
+genelevel_selcv_outFile <- 'dNdS_CADD.element.gp.out'
+dNdSFun(mutsFile = mutsFile,
+        refDb_element = refDb_element,
+        reg = reg,
+        globaldnds_outFile = globaldnds_outFile,
+        genelevel_selcv_outFile = genelevel_selcv_outFile,
+        iscv = NULL,
+        model = 2,
+        thread_num = 22)
