@@ -121,6 +121,8 @@ dNdSFun <- function(mutsFile, refDb_element, reg, globaldnds_outFile,
         RefElement <- get(ref_name)
         rm(ref_name)
         
+        elements_list=NULL
+        
         # Step 1: Variables required
         # [Input] Gene list (The user can input a gene list as a character vector)
         if (is.null(elements_list)) {
