@@ -162,5 +162,4 @@ if (length(args) > 1)
 {
   outFile <- "output"
 }
-db <- "/storage/yangjianLab/sunxiwei/data/annotations/CADD/chr"
-addScore(mutsFile, db, outFile)
+

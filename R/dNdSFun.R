@@ -1,4 +1,3 @@
-source("CADD_dndsWGS.NEG.R")
 dNdSFun <- function(mutsFile, refDb_element, reg, globaldnds_outFile,
                   genelevel_selcv_outFile, iscv = NULL, model = 2, thread_num = 22) 
 {
@@ -340,20 +339,3 @@ dNdSFun <- function(mutsFile, refDb_element, reg, globaldnds_outFile,
         write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
     }
 }
-
-reg <- "intergenic-gencode"
-args <- commandArgs(trailingOnly = TRUE)
-mutsFile <- args[1]
-rdaPath <- "/storage/yangjianLab/zhengmengyue/PROJECT/05_SELECTION/14_ToCPP/STEP3_SELECTION/data/RefElement/GRCh37/"
-refDb_element <- paste0(rdaPath, 'CADD.', reg, '.GRCh37.rda')
-
-globaldnds_outFile <- 'dNdS_CADD.global.out'
-genelevel_selcv_outFile <- 'dNdS_CADD.element.gp.out'
-dNdSFun(mutsFile = mutsFile,
-        refDb_element = refDb_element,
-        reg = reg,
-        globaldnds_outFile = globaldnds_outFile,
-        genelevel_selcv_outFile = genelevel_selcv_outFile,
-        iscv = NULL,
-        model = 2,
-        thread_num = 22)
