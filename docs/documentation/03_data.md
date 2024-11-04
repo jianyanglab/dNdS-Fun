@@ -12,7 +12,7 @@ The following are the links for the RefElement dataset used in the dNdSFun tutor
   * [GRCh37: 3utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.3utr.GRCh37.rda)
   * [GRCh37: prom](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.prom.GRCh37.rda)
   * [GRCh37: intron-gencode](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.intron-gencode.GRCh37.rda)
-  * [GRCh37: intergenic-gencode](https://yanglab.westlake.edu.cn/dNdSFun/RefElement/GRCh37/CADD.intergenic-gencode.GRCh37.rda)
+  * [GRCh37: intergenic-gencode](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.intergenic-gencode.GRCh37.rda)
   * [GRCh37: DichotomyLog](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/Dichotomy.GRCh37.log)
   * [GRCh38](https://yanglab.westlake.edu.cn/data/RefElement/*)
   
