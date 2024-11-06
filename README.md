@@ -32,7 +32,7 @@ See [tutorial.](https://jianyanglab.github.io/dNdSFun/)
 
 
 ## Contact
-If you have any questions for dNdSFun, please feel free to leave messages on the github issues or contact me <zhengmengyue@westlake.edu.cn>.   
+If you have any questions for dNdSFun, please feel free to leave messages on the github issues or contact us <zhengmengyue@westlake.edu.cn> <houjunren@westlake.edu.cn>.   
 
 
 ## Citation
