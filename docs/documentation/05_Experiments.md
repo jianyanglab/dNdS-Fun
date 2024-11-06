@@ -7,9 +7,9 @@ This experiments information shows a breif primaryly screening for significant (
 
 
 ## 1. Workflow of CRISPR screen 
-`dNdSFun` are available for two types of input data:
+`dNdS-Fun` are available for two types of input data:
 - Somatic mutation data with functional impact scores (Annotated in six columns).
-- Somatic mutation data without functional impact scores. (This type data are required an additional [CADD score data](https://jianyanglab.github.io/dNdSFun/documentation/03_data.html). Place it in the path specified by our software or provide the software with a correct path to find it.) 
+- Somatic mutation data without functional impact scores. (This type data are required an additional [CADD score data](https://jianyanglab.github.io/dNdS-Fun/documentation/03_data.html). Place it in the path specified by our software or provide the software with a correct path to find it.) 
 ![Example_Pie](Workflow_of_CRISPR_screen.png)
 
 
@@ -30,6 +30,6 @@ This result will be update when the article is accepted.
 This result will be update when the article is accepted.
 
 
-## 5. All significant positively selected genes/elements using dNdSFun combining PCAWG and GEL data.
-For all significant positive results, please refer to the following [link](https://jianyanglab.github.io/dNdSFun/documentation/06_dNdSFunDrivers.html).
+## 5. All significant positively selected genes/elements using dNdS-Fun combining PCAWG and GEL data.
+For all significant positive results, please refer to the following [link](https://jianyanglab.github.io/dNdS-Fun/documentation/06_dNdS-FunDrivers.html).
 

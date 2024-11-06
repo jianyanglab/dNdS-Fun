@@ -4,7 +4,7 @@ title: Installation
 description: ~
 ---
 
-`dNdSFun` is implemented as an R package, which can be installed from GitHub by:
+`dNdS-Fun` is implemented as an R package, which can be installed from GitHub by:
 
 ### Dependencies 
 * R version >= 4.0.5
@@ -15,9 +15,9 @@ description: ~
 install.packages("devtools")
 ```
 
-#### 2. Installing `dNdSFun`
+#### 2. Installing `dNdS-Fun`
 ```r
-devtools::install_github("jianyanglab/dNdSFun", build_vignettes=F)
+devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes=F)
 ```
 
 #### 3. Loading Package

@@ -1,19 +1,19 @@
 ---
 layout: page
-title: Example (dNdSFun)
+title: Example (dNdS-Fun)
 description: ~
 ---
-This tutorial offers an illustrative analysis of the somatic mutation data from simulation data [link](https://yanglab.westlake.edu.cn/data/dNdSFun/examples.tar.gz) using dNdSFun. Prior to running the analysis, it is important to ensure that the dNdSFun has been installed. For installation instructions, please refer to the following [link](https://jianyanglab.github.io/dNdSFun/documentation/02_installation.html).
+This tutorial offers an illustrative analysis of the somatic mutation data from simulation data [link](https://yanglab.westlake.edu.cn/data/dNdS-Fun/examples.tar.gz) using dNdS-Fun. Prior to running the analysis, it is important to ensure that the dNdS-Fun has been installed. For installation instructions, please refer to the following [link](https://jianyanglab.github.io/dNdS-Fun/documentation/02_installation.html).
 
 
 ## Input Data
-`dNdSFun` are available for two types of input data:
+`dNdS-Fun` are available for two types of input data:
 - Somatic mutation data with functional impact scores (Annotated at the sixth column).
-- Somatic mutation data without functional impact scores. (This type data are required an additional CADD score database [link](https://jianyanglab.github.io/dNdSFun/documentation/03_data.html). Place it in the path specified by our software or provide the software with a correct path to find it. We support the GRCh37 and GRCh38 both, please use the corresponding model to match.)
+- Somatic mutation data without functional impact scores. (This type data are required an additional CADD score database [link](https://jianyanglab.github.io/dNdS-Fun/documentation/03_data.html). Place it in the path specified by our software or provide the software with a correct path to find it. We support the GRCh37 and GRCh38 both, please use the corresponding model to match.)
 
 For how to annotate the functional impact score into the input data, please read the section of `Preparing Reference Data` in this tutorial. 
 
-The example data required for running this tutorial can be downloaded from the following [link](https://yanglab.westlake.edu.cn/data/dNdSFun/examples.tar.gz). 
+The example data required for running this tutorial can be downloaded from the following [link](https://yanglab.westlake.edu.cn/data/dNdS-Fun/examples.tar.gz). 
 Detailed information regarding the input data is provided as follows.
 
 ### 1. The format of input data without functional impact scores
@@ -31,7 +31,7 @@ Sample2	chr16	48265863	G	A
 ```
 A table-delimited text file contained all somatic mutation sequenced from one or multiple individuals. Each row corresponds to a specific variant, and the 5 columns are separate "IndividualID, Chromosome, Position, Ref, Alt".
 
-Note: Our software provides automatic addition of CADD scores, or you can also provide mutation files with CADD scores. See below for a detailed format. If your mutation withou functional impact score, you need to provide the CADD scores database, collected from [link](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz)(GRCh37) or [link](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)(GRCh38). You can use the parameter `score_database` [link](https://jianyanglab.github.io/dNdSFun/documentation/01_About.html) to provide your CADD scres database.
+Note: Our software provides automatic addition of CADD scores, or you can also provide mutation files with CADD scores. See below for a detailed format. If your mutation withou functional impact score, you need to provide the CADD scores database, collected from [link](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz)(GRCh37) or [link](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)(GRCh38). You can use the parameter `score_database` [link](https://jianyanglab.github.io/dNdS-Fun/documentation/01_About.html) to provide your CADD scres database.
 
 
 ### 2. split the CADD scores into different chromosomes
@@ -51,7 +51,7 @@ zcat ${wkDir}/${wholefil} | awk -v var=$chr '{if($1==var)print $0}' | sort | uni
 bgzip -c ${wkDir}/chr/whole_genome_SNVs.tsv.gz.chr${chr}.gz.rankRawScore.GRCh38 > ${wkDir}/chr/whole_genome_SNVs.tsv.gz.chr${chr}.gz.rankRawScore.GRCh38.gz
 tabix -fp vcf ${wkDir}/chr/whole_genome_SNVs.tsv.gz.chr${chr}.gz.rankRawScore.GRCh38.gz
 ```
-The path `${wkDir}/chr/` could be provided to dNdSFun as parameter `score_database`. The largest memory of this step should reach to 35Gb.
+The path `${wkDir}/chr/` could be provided to dNdS-Fun as parameter `score_database`. The largest memory of this step should reach to 35Gb.
 
 
 ### 3. The format of input data with functional impact scores
@@ -68,7 +68,7 @@ Sample1	chr1	241875099	T	C	0.221462
 Sample2	chr16	48265863	G	A	0.973034
 ```
 The sixth column is the raw CADD score, annotated from the above the CADD database.
-A table-delimited text file contained all somatic mutation sequenced from one or multiple individuals. Each row corresponds to a specific variant, and the five columns are separate "IndividualID, Chromosome, Position, Ref, Alt, Functional_impact_scores (raw score). In the dNdSFun with CADD model, the raw score should be the CADD scores download from the [link](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz)(GRCh37) or [link](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)(GRCh38).
+A table-delimited text file contained all somatic mutation sequenced from one or multiple individuals. Each row corresponds to a specific variant, and the five columns are separate "IndividualID, Chromosome, Position, Ref, Alt, Functional_impact_scores (raw score). In the dNdS-Fun with CADD model, the raw score should be the CADD scores download from the [link](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz)(GRCh37) or [link](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)(GRCh38).
 
 
 
@@ -79,8 +79,8 @@ library(dNdSFun)
 # Documentations
 help(dNdSFun)
 ``` 
-### 1. Global selection estimation of dNdSFun
-This section provides an basic usage of dNdSFun.
+### 1. Global selection estimation of dNdS-Fun
+This section provides an basic usage of dNdS-Fun.
 - mutsFile:  
 - reg: 
 - dichotomylog: 
@@ -91,7 +91,7 @@ This section provides an basic usage of dNdSFun.
 - iscv: NULL (The default).
 - model: 1 or other numberic variables.
 
-For further details about the parameters, please refer to this [link](https://jianyanglab.github.io/dNdSFun/documentation/01_About.html).
+For further details about the parameters, please refer to this [link](https://jianyanglab.github.io/dNdS-Fun/documentation/01_About.html).
 ```r
 #  
 module load R/4.0.5
@@ -105,10 +105,10 @@ Rscript src/cal_CADD_dndsWGS.NEG.R ${mutsFile} data/GRCh38/${reg}.GRCh38.rda dat
 If you provide the somatic mutations with functional impact scores, you can ignore the parameter `score` and `score_database`.
 
 
-### 2. Global selection estimation of dNdSFun
-This section provides an global selection estimation of somatic mutation of dNdSFun.
+### 2. Global selection estimation of dNdS-Fun
+This section provides an global selection estimation of somatic mutation of dNdS-Fun.
 ```r
-# Set the gene selection method in dNdSFun function 
+# Set the gene selection method in dNdS-Fun function 
 library(dNdSFun)
 readRDS("../outFile_cds-exon.rds")
 
@@ -129,11 +129,11 @@ The results are stored in CADD_dndsWGSout.
 - pval: The significance of Chiq-square test to estimate whether the wsel is different from 1 (neutral selection).
 
 
-### 3. Gene/element-level selection estimation of dNdSFun
-dNdSFun provides users to estimate the gene/element-level selection. As for five types of genomic regions, dNdSFun would do the separate analysis for each gene. Here, we demonstrate the two types of results, including cds-exon and promoter regions.
+### 3. Gene/element-level selection estimation of dNdS-Fun
+dNdS-Fun provides users to estimate the gene/element-level selection. As for five types of genomic regions, dNdS-Fun would do the separate analysis for each gene. Here, we demonstrate the two types of results, including cds-exon and promoter regions.
 
 ```r
-# Set the gene selection method in dNdSFun function 
+# Set the gene selection method in dNdS-Fun function 
 library(dNdSFun)
 readRDS("../outFile_cds-exon.rds")
 
@@ -161,5 +161,5 @@ The results are stored in CADD_dndsWGSout.
 
 The dndsout data could contained the genes withou any mutations with a pval with "0" or contained genes with a few somatic mutations. We suggest that you should select the genes with somatic mutations more than 5 (n_neutral+n_select>5) and the adjust significance (qval<0.05).
 
-Note: we do not provide a visulization function in dNdSFun.
+Note: we do not provide a visulization function in dNdS-Fun.
 
