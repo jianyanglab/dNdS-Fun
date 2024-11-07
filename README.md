@@ -32,7 +32,7 @@ See [tutorial.](https://jianyanglab.github.io/dNdS-Fun/)
 
 
 ## Contact
-If you have any questions for dNdS-Fun, please feel free to leave messages on the github issues or contact us <zhengmengyue@westlake.edu.cn> <houjunren@westlake.edu.cn>.   
+If you have any questions for dNdS-Fun, please feel free to leave messages on the github issues or contact us <zhengmengyue@westlake.edu.cn> or <houjunren@westlake.edu.cn>.   
 
 
 ## Citation
