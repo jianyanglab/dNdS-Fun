@@ -10,9 +10,11 @@ description: ~
 ### Install as an R Package
 **Requirements:**R version > 4.0.5   
 To install dNdS-Fun from GitHub using devtools, run the following commands in R:
+```R
 if (!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
 devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
+```
 ### Install from Source Code
 **Requirements:**    
 1. parallel
