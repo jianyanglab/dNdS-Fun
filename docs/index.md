@@ -16,8 +16,8 @@ disable_anchors: true
 
 - **Functional Impact Scores Integration:** Utilizes genome-wide functional impact scores (e.g., CADD) to assess the potential functional importance of mutations across the entire genome.
 - **Mutation Grouping:** Classifies genomic sites into two groups based on functional impact scores:
-- - **More Functional Group:** Sites with higher functional impact scores (analogous to nonsynonymous mutations).
-- - **Less Functional Group:** Sites with lower functional impact scores (analogous to synonymous mutations).
+    - **More Functional Group:** Sites with higher functional impact scores (analogous to nonsynonymous mutations).
+    - **Less Functional Group:** Sites with lower functional impact scores (analogous to synonymous mutations).
 - **Selection Metric (ω):** the normalized ratio of observed mutations in the more functional group to the less functional group, adjusted for the number of possible sites and mutation rates. The ω ratio indicates the direction of selection and quantifies selection strength:
 **ω > 1:** Indicates positive selection.
 **ω < 1:** Indicates negative selection.
