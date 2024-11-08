@@ -13,18 +13,17 @@ To install dNdS-Fun from GitHub using devtools, run the following commands in R:
 if (!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
 devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
-**Install from Source Code**
-**Requirements:**
-```R
-1.parallel
-2.data.table
-3.MASS
-4.doParallel
-5.foreach
-6.GenomicRanges (install via Bioconductor)
-7.Biostrings (install via Bioconductor)
-8.**tabix** (command-line tool)
-```
+**Install from Source Code**  
+**Requirements:**    
+1. parallel
+2. data.table
+3. MASS
+4. doParallel
+5. foreach
+6. GenomicRanges (install via Bioconductor)
+7. Biostrings (install via Bioconductor)
+8. **tabix** (command-line tool)
+
 **Installation Steps:**
 1. Install necessary R packages:   
 ```R 

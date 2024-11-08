@@ -23,6 +23,8 @@ The following are the links for the RefElement dataset used in the dNdS-Fun tuto
 
 
 
+
+
 Parameters of `dNdS-Fun`
 -------------------
 - `mutsFile`: The input table of somatic mutations is a table-delimited text file. Each row corresponds to a somatic mutation, and six columns are separate "IndividualID, Chromosome, Position, Ref, Alt, Functional_impact_scores (raw score)". (Attention: The IndividualID is needed be provided to filtered out the duplicate mutations from the same indivudual. If you have not exact IndividualID for the recurrent mutations, you can use different pseudo-IndividualID to avoid the filteration of recurrent mutations from different individuals.)
