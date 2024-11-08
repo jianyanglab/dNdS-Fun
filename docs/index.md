@@ -13,9 +13,9 @@ disable_anchors: true
 <!-- dNdS-Fun is a genome-wide `selection` detection algorithm, integrating established genome-wide functional impact scores into the conventional dN/dS framework for cancer genome study. dNdS-Fun significantly improves our understanding of selection in noncoding regions of cancer genomes, which account for more 98.5% of the genome than coding sequences. Similar to synonymous sites in dN/dS, dNdS-Fun define variants at the bottom 50% functional impact scores in whole genome, most of which are assumed selectively neutral, as nonfunctional class of sites to control background mutation rates; as nonsynonymous sites, other variants at the top 50% functional impact scores are defined as functional class of sites. Then, selection can be quantified as the ratio between the probability of a mutation occurring at either class of sites. To correct context-dependent effects of mutations, we also fit all 192 trinucleotide mutational types (all possible combinations for one base upstream and downstream from the mutant base in either transcribed or non-transcribed strand) in the model as previously described. 
 -->
 
-    \u2022 **Functional Impact Scores Integration:** Utilizes genome-wide functional impact scores (e.g., CADD) to assess the potential functional importance of mutations across the entire genome.
+**• Functional Impact Scores Integration:** Utilizes genome-wide functional impact scores (e.g., CADD) to assess the potential functional importance of mutations across the entire genome.
     \u2022 **Mutation Grouping:** Classifies genomic sites into two groups based on functional impact scores:
-        \u25E6 **More Functional Group:** Sites with higher functional impact scores (analogous to nonsynonymous mutations).
+        **◦ More Functional Group:** Sites with higher functional impact scores (analogous to nonsynonymous mutations).
         \u25E6 **Less Functional Group:** Sites with lower functional impact scores (analogous to synonymous mutations).
     \u2022 **Selection Metric (ω):** the normalized ratio of observed mutations in the more functional group to the less functional group, adjusted for the number of possible sites and mutation rates. The ω ratio indicates the direction of selection and quantifies selection strength:
         \u25E6 **ω > 1:** Indicates positive selection.
