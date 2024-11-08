@@ -4,7 +4,7 @@ title: Installation
 description: ~
 ---
 
-**`dNdS-Fun`** is implemented as an R package, which can be installed from GitHub by:
+**dNdS-Fun** is implemented as an R package, which can be installed from GitHub by:
 
 ## Installation
 **Install as an R Package**
