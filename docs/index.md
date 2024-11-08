@@ -83,14 +83,14 @@ devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
 **Installation Steps:**
 1. Install necessary R packages:
 
-\# Install Bioconductor manager if not already installed
+\# Install Bioconductor manager if not already installed   
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-\# Install required CRAN packages
+\# Install required CRAN packages   
 install.packages(c("parallel", "data.table", "MASS", "doParallel", "foreach"))
 
-\# Install required Bioconductor packages
+\# Install required Bioconductor packages  
 BiocManager::install(c("GenomicRanges", "Biostrings"))
 
 2. Install **tabix**:
@@ -98,12 +98,12 @@ BiocManager::install(c("GenomicRanges", "Biostrings"))
 - On macOS: Use Homebrew, e.g., brew install htslib.
 - On Windows: Precompiled binaries are available; ensure tabix is added to your system PATH.
 3. Clone the dNdS-Fun repository and install:
-bash
-git clone [https://github.com/jianyanglab/dNdS-Fun.git](https://github.com/jianyanglab/dNdS-Fun.git)
+bash  
+git clone [https://github.com/jianyanglab/dNdS-Fun.git](https://github.com/jianyanglab/dNdS-Fun.git)  
 
-Then, from within R:
-setwd("path_to_dNdS-Fun")
-install.packages(".", repos = NULL, type = "source")
+Then, from within R:   
+setwd("path_to_dNdS-Fun")   
+install.packages(".", repos = NULL, type = "source")   
 
 ### How to Use
 Please refer to the [tutorial](https://yanglab.westlake.edu.cn/dNdS-Fun/doc/tutorial) for detailed instructions on how to use dNdS-Fun, including input file formats, parameter settings, and example analyses.
