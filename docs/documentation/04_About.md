@@ -7,7 +7,7 @@ title: About
 
 Our Portal
 -------------------
-[dNdS-Fun Portal](https://yanglab.westlake.edu.cn/)  
+[dNdS-Fun Portal](https://yanglab.westlake.edu.cn/dNdS-Fun/)  
 
 ![Example_Pie](Portal.png)
 
@@ -36,7 +36,7 @@ Zheng M†, Sun X†, Hou J, Guo M, Liu X, Yang W, Yang J (2024) Characterizing 
 
 
 
-Credits and Acknowledgements
+Acknowledgements
 -------------------
-Mengyue Zheng (methods, data analysis and documentation), Junren Hou (online tool and maintenance), Wei Xi (overseeing, methods, documentation, and maintenance) and Jian Yang (overseeing, methods, documentation, and maintenance). We thank the Westlake University High Performance Computing Centre for hosting the online tool and the summary data.
+Mengyue Zheng (methods, tool development, data analysis, and documentation), Junren Hou (online tool development and maintenance), Weixi Sun (supervision, methods), and Jian Yang (supervision, methods, documentation, and maintenance). We thank the Westlake University High-Performance Computing Centre for hosting the online tool and portal.
 
