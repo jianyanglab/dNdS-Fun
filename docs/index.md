@@ -81,14 +81,16 @@ devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
 8. **tabix** (command-line tool)
 
 **Installation Steps:**
-1. Install necessary R packages:
-    \# Install Bioconductor manager if not already installed   
-    if (!requireNamespace("BiocManager", quietly = TRUE))   
-        install.packages("BiocManager")
-    \# Install required CRAN packages   
-    install.packages(c("parallel", "data.table", "MASS", "doParallel", "foreach"))
-    \# Install required Bioconductor packages  
-    BiocManager::install(c("GenomicRanges", "Biostrings"))
+1. Install necessary R packages:    
+    \# Install Bioconductor manager if not already installed     
+    if (!requireNamespace("BiocManager", quietly = TRUE))    
+        install.packages("BiocManager")   
+
+    \# Install required CRAN packages    
+    install.packages(c("parallel", "data.table", "MASS", "doParallel", "foreach"))   
+    
+    \# Install required Bioconductor packages     
+    BiocManager::install(c("GenomicRanges", "Biostrings"))   
 2. Install **tabix**:
 - On Linux: Use your package manager, e.g., sudo apt-get install tabix.
 - On macOS: Use Homebrew, e.g., brew install htslib.
