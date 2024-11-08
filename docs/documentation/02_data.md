@@ -3,7 +3,7 @@ layout: page
 title: Data
 description: Link to download the RefElement dataset and Score dataset
 ---
-The following are the links for the RefElement dataset used in the dNdS-Fun tutorial. 
+The dNdS-Fun sub-model 
 -------------------
 1. RefElement
   * [GRCh37: cds-exon](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.cds-exon.GRCh37.rda)  (36.5MB)
