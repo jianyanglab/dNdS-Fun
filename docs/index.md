@@ -8,7 +8,7 @@ disable_anchors: true
 ### A tool for detecting selection signatures of both coding and noncoding somatic mutations in cancer genomes
 **dNdS-Fun** is a generalized framework that extends the classical dN/dS methodology, specifically dNdScv, to detect and quantify selection signatures on both coding and noncoding somatic mutations in cancer genomes. By integrating genome-wide functional impact scores, dNdS-Fun allows for the identification of positive and negative selection of both coding and noncoding mutations at global (genome-wide) and local (gene or element-specific) scales.
 
-![iDEA\_pipeline](Overview2.jpg)
+![iDEA\_pipeline](dNdSFun_Overview.png)
 Created with [BioRender.com](https://www.biorender.com/)
 
 ### Key Features
