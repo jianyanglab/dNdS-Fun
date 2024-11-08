@@ -7,13 +7,13 @@ description: ~
 **dNdS-Fun** is implemented as an R package, which can be installed from GitHub by:
 
 ## Installation
-**Install as an R Package**
-**Requirements:** R version > 4.0.5
+### Install as an R Package
+**Requirements:**R version > 4.0.5   
 To install dNdS-Fun from GitHub using devtools, run the following commands in R:
 if (!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
 devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
-**Install from Source Code**  
+### Install from Source Code
 **Requirements:**    
 1. parallel
 2. data.table
@@ -24,7 +24,7 @@ devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
 7. Biostrings (install via Bioconductor)
 8. **tabix** (command-line tool)
 
-**Installation Steps:**
+### Installation Steps:
 1. Install necessary R packages:   
 ```R 
     # Install Bioconductor manager if not already installed     
