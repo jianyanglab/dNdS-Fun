@@ -3,7 +3,7 @@ layout: page
 title: Example 
 description: ~
 ---
-This tutorial offers an illustrative analysis of the somatic mutation data from simulation data [link](https://yanglab.westlake.edu.cn/data/dNdS-Fun/examples.tar.gz) using dNdS-Fun. Prior to running the analysis, it is important to ensure that the dNdS-Fun has been installed. For installation instructions, please refer to the following [link](https://jianyanglab.github.io/dNdS-Fun/documentation/02_installation.html).
+This tutorial offers an illustrative analysis of the somatic mutation data from simulation data [link](https://yanglab.westlake.edu.cn/data/dNdSFun/example.txt) using dNdS-Fun. Prior to running the analysis, it is important to ensure that the dNdS-Fun has been installed. For installation instructions, please refer to the following [link](https://jianyanglab.github.io/dNdS-Fun/documentation/02_installation.html).
 
 
 ## Input Data
