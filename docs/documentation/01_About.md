@@ -9,7 +9,7 @@ Cite `dNdS-Fun`
 
 Contact
 -------------------
-If you have any question, please send an email to Mengyue Zheng at zhengmengyue@westlake.edu.cn or Junren Hou at houjunren@westlake.edu.cn or Jian Yang at jian.yang@westlake.edu.cn.
+If you have any question, please send an email to Mengyue Zheng at [zhengmengyue@westlake.edu.cn](zhengmengyue@westlake.edu.cn) or Junren Hou at [houjunren@westlake.edu.cn](houjunren@westlake.edu.cn) or Jian Yang at [jian.yang@westlake.edu.cn](jian.yang@westlake.edu.cn).
 
 
 

@@ -79,6 +79,7 @@ devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
 6. GenomicRanges (install via Bioconductor)
 7. Biostrings (install via Bioconductor)
 8. **tabix** (command-line tool)
+
 **Installation Steps:**
 1. Install necessary R packages:
 
