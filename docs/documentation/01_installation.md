@@ -27,14 +27,14 @@ devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
 **Installation Steps:**
 1. Install necessary R packages:   
 ```R 
-    \# Install Bioconductor manager if not already installed     
+    # Install Bioconductor manager if not already installed     
     if (!requireNamespace("BiocManager", quietly = TRUE))    
          install.packages("BiocManager")   
 
-    \# Install required CRAN packages    
+    # Install required CRAN packages    
     install.packages(c("parallel", "data.table", "MASS", "doParallel", "foreach"))   
 
-    \# Install required Bioconductor packages     
+    # Install required Bioconductor packages     
     BiocManager::install(c("GenomicRanges", "Biostrings"))
 ```
 2. Install **tabix**:
