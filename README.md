@@ -51,15 +51,17 @@
 ### Conclusion
 dNdS-Fun represents a significant advancement in detecting selection in cancer genomes by enabling analysis of both coding and noncoding regions within a unified framework. By integrating functional impact scores and accounting for mutation rate variability, dNdS-Fun provides a powerful tool for identifying driver genes and elements under selection, offering valuable insights into tumorigenesis and potential therapeutic targets.
 
-### Installation
-**Install as an R Package**
-**Requirements:** R version > 4.0.5
-To install dNdS-Fun from GitHub using devtools, run the following commands in R:
-if (!requireNamespace("devtools", quietly = TRUE))
-    install.packages("devtools")
-devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
-**Install from Source Code**
-**Requirements:**
+### Installation  
+**Install as an R Package**  
+**Requirements:** R version > 4.0.5  
+To install dNdS-Fun from GitHub using devtools, run the following commands in R:  
+```R
+if (!requireNamespace("devtools", quietly = TRUE))  
+    install.packages("devtools")  
+devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)  
+```
+**Install from Source Code**   
+**Requirements:**   
 ```R
 1.parallel
 2.data.table
@@ -69,8 +71,8 @@ devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
 6.GenomicRanges (install via Bioconductor)
 7.Biostrings (install via Bioconductor)
 8.**tabix** (command-line tool)
-```
-**Installation Steps:**
+``` 
+**Installation Steps:**   
 1. Install necessary R packages:   
 ```R 
     \# Install Bioconductor manager if not already installed     
@@ -83,7 +85,7 @@ devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
     \# Install required Bioconductor packages     
     BiocManager::install(c("GenomicRanges", "Biostrings"))
 ```
-2. Install **tabix**:
+2. Install **tabix**:   
 - On Linux: Use your package manager, e.g., sudo apt-get install tabix.
 - On macOS: Use Homebrew, e.g., brew install htslib.
 - On Windows: Precompiled binaries are available; ensure tabix is added to your system PATH.
