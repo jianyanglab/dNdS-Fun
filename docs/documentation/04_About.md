@@ -16,7 +16,7 @@ Our Portal
 
 Our group
 -------------------
-[YangLab](https://yanglab.westlake.edu.cn/)   
+**[YangLab]**(https://yanglab.westlake.edu.cn/)   
 
 ![Example_Pie](YangLab.png)
 
