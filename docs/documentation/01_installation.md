@@ -47,5 +47,7 @@ bash
 git clone https://github.com/jianyanglab/dNdS-Fun.git
 ```
 Then, from within R:   
+```R
 setwd("path_to_dNdS-Fun")   
 install.packages(".", repos = NULL, type = "source")   
+```
