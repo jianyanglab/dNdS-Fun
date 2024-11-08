@@ -3,18 +3,14 @@ layout: page
 title: About
 ---
 
-Cite `dNdS-Fun`
+**dNdS-Fun** is a generalized framework that extends the classical dN/dS methodology, specifically dNdScv, to detect and quantify selection signatures on both coding and noncoding somatic mutations in cancer genomes. By integrating genome-wide functional impact scores, dNdS-Fun allows for the identification of positive and negative selection of both coding and noncoding mutations at global (genome-wide) and local (gene or element-specific) scales.
+
+
+Our Portal
 -------------------
-Zheng M†, Sun X†, Hou J, Guo M, Liu X, Yang W, Yang J (2024) Characterizing selection signatures in coding and noncoding regions of 14,886 cancer genomes. Submitted. († Equal contribution).
+[dNdS-Fun Portal](https://yanglab.westlake.edu.cn/)
+![Example_Pie](Portal.png)
 
-
-Website
--------------------
-
-
-Contact
--------------------
-If you have any question, please send an email to Mengyue Zheng at [zhengmengyue@westlake.edu.cn](zhengmengyue@westlake.edu.cn) or Junren Hou at [houjunren@westlake.edu.cn](houjunren@westlake.edu.cn) or Jian Yang at [jian.yang@westlake.edu.cn](jian.yang@westlake.edu.cn).
 
 
 
@@ -22,6 +18,21 @@ Our group
 -------------------
 [YangLab](https://yanglab.westlake.edu.cn/)
 ![Example_Pie](YangLab.png)
+
+
+
+
+Contact
+-------------------
+If you have any questions about dNdS-Fun, please feel free to open an issue on the GitHub repository or contact us via email at [jian.yang@westlake.edu.cn.](mailto:jian.yang@westlake.edu.cn)
+
+
+
+
+Citation
+-------------------
+Zheng M†, Sun X†, Hou J, Guo M, Liu X, Yang W, Yang J (2024) Characterizing selection signatures in coding and noncoding regions of 14,886 cancer genomes. Submitted. († Equal contribution).
+
 
 
 Credits and Acknowledgements
