@@ -62,9 +62,6 @@ disable_anchors: true
 ### Conclusion
 dNdS-Fun represents a significant advancement in detecting selection in cancer genomes by enabling analysis of both coding and noncoding regions within a unified framework. By integrating functional impact scores and accounting for mutation rate variability, dNdS-Fun provides a powerful tool for identifying driver genes and elements under selection, offering valuable insights into tumorigenesis and potential therapeutic targets.   
 
-### How to Use
-Please refer to the [tutorial](https://yanglab.westlake.edu.cn/dNdS-Fun/doc/tutorial) for detailed instructions on how to use dNdS-Fun, including input file formats, parameter settings, and example analyses.
-
 ### Contact
 If you have any questions about dNdS-Fun, please feel free to open an issue on the GitHub repository or contact us via email at [jian.yang@westlake.edu.cn.](mailto:jian.yang@westlake.edu.cn)
 
