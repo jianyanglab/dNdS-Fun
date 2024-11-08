@@ -5,7 +5,7 @@ disable_anchors: true
 
 ---
 ## dNdS-Fun
-### dNdS-Fun: a tool for detecting selection signatures of both coding and noncoding somatic mutations in cancer genomes
+### A tool for detecting selection signatures of both coding and noncoding somatic mutations in cancer genomes
 **dNdS-Fun** is a generalized framework that extends the classical dN/dS methodology, specifically dNdScv, to detect and quantify selection signatures on both coding and noncoding somatic mutations in cancer genomes. By integrating genome-wide functional impact scores, dNdS-Fun allows for the identification of positive and negative selection of both coding and noncoding mutations at global (genome-wide) and local (gene or element-specific) scales.
 
 ![iDEA\_pipeline](Overview2.jpg)
@@ -60,48 +60,7 @@ disable_anchors: true
 - **Customization:** Users can adjust parameters such as functional impact score thresholds and include additional covariates to tailor the analysis to specific datasets.
 
 ### Conclusion
-dNdS-Fun represents a significant advancement in detecting selection in cancer genomes by enabling analysis of both coding and noncoding regions within a unified framework. By integrating functional impact scores and accounting for mutation rate variability, dNdS-Fun provides a powerful tool for identifying driver genes and elements under selection, offering valuable insights into tumorigenesis and potential therapeutic targets.
-
-### Installation
-**Install as an R Package**
-**Requirements:** R version > 4.0.5
-To install dNdS-Fun from GitHub using devtools, run the following commands in R:
-if (!requireNamespace("devtools", quietly = TRUE))
-    install.packages("devtools")
-devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
-**Install from Source Code**
-**Requirements:**
-1. parallel
-2. data.table
-3. MASS
-4. doParallel
-5. foreach
-6. GenomicRanges (install via Bioconductor)
-7. Biostrings (install via Bioconductor)
-8. **tabix** (command-line tool)
-
-**Installation Steps:**
-1. Install necessary R packages:    
-    \# Install Bioconductor manager if not already installed     
-    if (!requireNamespace("BiocManager", quietly = TRUE))    
-                 install.packages("BiocManager")   
-
-    \# Install required CRAN packages    
-    install.packages(c("parallel", "data.table", "MASS", "doParallel", "foreach"))   
-
-    \# Install required Bioconductor packages     
-    BiocManager::install(c("GenomicRanges", "Biostrings"))
-2. Install **tabix**:
-- On Linux: Use your package manager, e.g., sudo apt-get install tabix.
-- On macOS: Use Homebrew, e.g., brew install htslib.
-- On Windows: Precompiled binaries are available; ensure tabix is added to your system PATH.
-3. Clone the dNdS-Fun repository and install:   
-bash  
-git clone [https://github.com/jianyanglab/dNdS-Fun.git](https://github.com/jianyanglab/dNdS-Fun.git)  
-
-Then, from within R:   
-setwd("path_to_dNdS-Fun")   
-install.packages(".", repos = NULL, type = "source")   
+dNdS-Fun represents a significant advancement in detecting selection in cancer genomes by enabling analysis of both coding and noncoding regions within a unified framework. By integrating functional impact scores and accounting for mutation rate variability, dNdS-Fun provides a powerful tool for identifying driver genes and elements under selection, offering valuable insights into tumorigenesis and potential therapeutic targets.   
 
 ### How to Use
 Please refer to the [tutorial](https://yanglab.westlake.edu.cn/dNdS-Fun/doc/tutorial) for detailed instructions on how to use dNdS-Fun, including input file formats, parameter settings, and example analyses.
