@@ -8,7 +8,7 @@ title: About
 
 Our Portal
 -------------------
-[dNdS-Fun Portal](https://yanglab.westlake.edu.cn/)
+## [dNdS-Fun Portal](https://yanglab.westlake.edu.cn/)
 ![Example_Pie](Portal.png)
 
 
@@ -16,7 +16,7 @@ Our Portal
 
 Our group
 -------------------
-[YangLab](https://yanglab.westlake.edu.cn/)
+## [YangLab](https://yanglab.westlake.edu.cn/)
 ![Example_Pie](YangLab.png)
 
 
