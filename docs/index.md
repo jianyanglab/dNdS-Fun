@@ -54,7 +54,7 @@ disable_anchors: true
 - **Reproducibility:** Showed consistent results across different datasets (e.g., TCGA, PCAWG, 100kGP) and sequencing platforms (WES and WGS).
 
 ### Implementation
-- **Software Availability:** dNdS-Fun is available as an open-source software tool on GitHub. We have also developed a web-based platform (https://yanglab.westlake.edu.cn/dNdS-Fun/) for online data analysis.
+- **Software Availability:** dNdS-Fun is available as an open-source software tool on GitHub. We have also developed a web-based platform[(https://yanglab.westlake.edu.cn/dNdS-Fun/)](https://yanglab.westlake.edu.cn/dNdS-Fun/) for online data analysis.
 - **Programming Language:** Implemented in R, leveraging existing statistical packages for regression modelling and statistical testing.
 - **User Documentation:** Comprehensive documentation, including installation instructions, usage examples, and parameter explanations, is provided to guide users.
 - **Customization:** Users can adjust parameters such as functional impact score thresholds and include additional covariates to tailor the analysis to specific datasets.
@@ -71,17 +71,47 @@ if (!requireNamespace("devtools", quietly = TRUE))
 devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
 **Install from Source Code**
 **Requirements:**
-1.parallel
-2.data.table
-3.MASS
-4.doParallel
-5.foreach
-6.GenomicRanges (install via Bioconductor)
-7.Biostrings (install via Bioconductor)
-8.tabix (command-line tool)
+1. parallel
+2. data.table
+3. MASS
+4. doParallel
+5. foreach
+6. GenomicRanges (install via Bioconductor)
+7. Biostrings (install via Bioconductor)
+8. **tabix** (command-line tool)
+**Installation Steps:**
+1. Install necessary R packages:
 
-### Installations
-* [here](https://jianyanglab.github.io/dNdS-Fun/documentation/02_installation.html)
+\# Install Bioconductor manager if not already installed
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+\# Install required CRAN packages
+install.packages(c("parallel", "data.table", "MASS", "doParallel", "foreach"))
+
+\# Install required Bioconductor packages
+BiocManager::install(c("GenomicRanges", "Biostrings"))
+
+2. Install **tabix**:
+- On Linux: Use your package manager, e.g., sudo apt-get install tabix.
+- On macOS: Use Homebrew, e.g., brew install htslib.
+- On Windows: Precompiled binaries are available; ensure tabix is added to your system PATH.
+3. Clone the dNdS-Fun repository and install:
+bash
+git clone [https://github.com/jianyanglab/dNdS-Fun.git](https://github.com/jianyanglab/dNdS-Fun.git)
+
+Then, from within R:
+setwd("path_to_dNdS-Fun")
+install.packages(".", repos = NULL, type = "source")
+
+### How to Use
+Please refer to the [tutorial](https://yanglab.westlake.edu.cn/dNdS-Fun/doc/tutorial) for detailed instructions on how to use dNdS-Fun, including input file formats, parameter settings, and example analyses.
+
+### Contact
+If you have any questions about dNdS-Fun, please feel free to open an issue on the GitHub repository or contact us via email at [jian.yang@westlake.edu.cn.](mailto:jian.yang@westlake.edu.cn)
+
+### Citation
+Zheng M†, Sun X†, Hou J, Guo M, Liu X, Yang W, Yang J (2024) Characterizing selection signatures in coding and noncoding regions of 14,886 cancer genomes. Submitted. († Equal contribution).
 
 <!-- ### Example analysis
 * [Example](https://jianyanglab.github.io/dNdS-Fun/documentation/04_Example.html) -->
