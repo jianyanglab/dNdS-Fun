@@ -14,11 +14,11 @@ The following are the links for the RefElement dataset used in the dNdS-Fun tuto
   * [GRCh37: intron-gencode](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.intron-gencode.GRCh37.rda)  (1.2GB)
   * [GRCh37: intergenic-gencode](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.intergenic-gencode.GRCh37.rda)  (813MB)
   * [GRCh37: DichotomyLog](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/Dichotomy.GRCh37.log)  (259B)
-  * [GRCh38](https://yanglab.westlake.edu.cn/data/RefElement/*)
+  * [GRCh38](https://yanglab.westlake.edu.cn/data/RefElement/*)  (Updated soon)
   
 2. Score
   * [CADD scores (GRCh37)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz)  (78GB)
-  * [CADD scores (GRCh38)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)
+  * [CADD scores (GRCh38)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)  (Updated soon)
 
 
 
