@@ -5,6 +5,11 @@ title: About
 
 Cite `dNdS-Fun`
 -------------------
+Zheng M†, Sun X†, Hou J, Guo M, Liu X, Yang W, Yang J (2024) Characterizing selection signatures in coding and noncoding regions of 14,886 cancer genomes. Submitted. († Equal contribution).
+
+
+Website
+-------------------
 
 
 Contact
