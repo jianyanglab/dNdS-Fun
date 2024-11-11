@@ -9,7 +9,7 @@ This tutorial provides an illustrative analysis of somatic mutation data using s
 ## Input Data
 `dNdS-Fun` supports two types of input data:
 - Somatic mutation data with functional impact scores (annotated in the sixth column).
-- Somatic mutation data without functional impact scores. This type of data requires an additional CADD score database, available here[link](https://jianyanglab.github.io/dNdS-Fun/documentation/03_data.html). Place the database in the path specified by our software or provide the correct path for the software to locate it. We support both GRCh37 and GRCh38 human genome; please use the corresponding model to ensure compatibility.
+- Somatic mutation data without functional impact scores. This type of data requires an additional CADD score database, available here [link](https://jianyanglab.github.io/dNdS-Fun/documentation/03_data.html). Place the database in the path specified by our software or provide the correct path for the software to locate it. We support both GRCh37 and GRCh38 human genome; please use the corresponding model to ensure compatibility.
 
 For instructions on annotating the functional impact score in the input data, please refer to the `Preparing Reference Data` section of this tutorial.
 
@@ -33,7 +33,7 @@ A tab-delimited text file containing all somatic mutations sequenced from one or
 
 A table-delimited text file contained all somatic mutation sequenced from multiple individuals. Each row corresponds to a specific variant, and the 5 columns are separate "IndividualID, Chromosome, Position, Ref, Alt".
 
-Note: Our software automatically adds CADD scores, but you can also provide mutation files with CADD scores. See below for the detailed format. If your input data format without functional impact scores, you will need to provide the CADD scores database, which can be downloaded from here [(GRCh37)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz) or here [(GRCh38)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)(GRCh38). You can use the parameter [`score_database`](https://jianyanglab.github.io/dNdS-Fun/documentation/03_data.html) to provide your CADD scores database path.
+Note: Our software automatically adds CADD scores, but you can also provide mutation files with CADD scores. See below for the detailed format. If your input data format without functional impact scores, you will need to provide the CADD scores database, which can be downloaded from here [(GRCh37)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz) or here [(GRCh38)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz). You can use the parameter [`score_database`](https://jianyanglab.github.io/dNdS-Fun/documentation/03_data.html) to provide your CADD scores database path.
 
 
 ### 2. Split the CADD scores into different chromosomes
