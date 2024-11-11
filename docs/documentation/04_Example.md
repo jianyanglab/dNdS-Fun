@@ -3,7 +3,7 @@ layout: page
 title: Example 
 description: ~
 ---
-This tutorial provides an illustrative analysis of somatic mutation data using simulation data available here [link](https://yanglab.westlake.edu.cn/data/dNdSFun/example.txt) with dNdS-Fun. Before running the analysis, please ensure that dNdS-Fun is installed. For installation instructions, refer to this [link](https://jianyanglab.github.io/dNdS-Fun/documentation/02_installation.md).
+This tutorial provides an illustrative analysis of somatic mutation data using simulation data available here [link](https://yanglab.westlake.edu.cn/data/dNdSFun/example.txt) with dNdS-Fun. Before running the analysis, please ensure that dNdS-Fun is installed. For installation instructions, refer to this [link](https://jianyanglab.github.io/dNdS-Fun/documentation/02_installation.html).
 
 
 ## Input Data
@@ -13,7 +13,7 @@ This tutorial provides an illustrative analysis of somatic mutation data using s
 
 For instructions on annotating the functional impact score in the input data, please refer to the `Preparing Reference Data` section of this tutorial.
 
-The example data required for this tutorial can be downloaded from the following link[link](https://yanglab.westlake.edu.cn/data/dNdS-Fun/examples.tar.gz). Detailed information about the input data is provided below.
+The example data required for this tutorial can be downloaded from the following [link](https://yanglab.westlake.edu.cn/data/dNdS-Fun/examples.tar.gz). Detailed information about the input data is provided below.
 
 
 ### 1. Input data format without functional impact scores
