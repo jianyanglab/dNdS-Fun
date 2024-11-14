@@ -54,7 +54,7 @@ disable_anchors: true
 - **Reproducibility:** Showed consistent results across different datasets (e.g., TCGA, PCAWG, 100kGP) and sequencing platforms (WES and WGS).
 
 ### Implementation
-- **Software Availability:** dNdS-Fun is available as an open-source software tool on GitHub. We have also developed a web-based platform[(https://yanglab.westlake.edu.cn/dNdS-Fun/)](https://yanglab.westlake.edu.cn/dNdS-Fun/) for online data analysis.
+- **Software Availability:** dNdS-Fun is available as an open-source software tool on GitHub. We have also developed a web-based platform [(https://yanglab.westlake.edu.cn/dNdS-Fun/)](https://yanglab.westlake.edu.cn/dNdS-Fun/) for online data analysis.
 - **Programming Language:** Implemented in R, leveraging existing statistical packages for regression modelling and statistical testing.
 - **User Documentation:** Comprehensive documentation, including installation instructions, usage examples, and parameter explanations, is provided to guide users.
 - **Customization:** Users can adjust parameters such as functional impact score thresholds and include additional covariates to tailor the analysis to specific datasets.
