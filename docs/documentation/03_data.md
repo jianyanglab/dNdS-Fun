@@ -27,8 +27,8 @@ The dNdS-Fun sub-model
   * [GRCh38: DichotomyLog](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/Dichotomy.GRCh38.log)  (236B)
   
 ### 2. Score
-  * [CADD scores (GRCh37)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz)  (78GB)
-  * [CADD scores (GRCh38)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)  (ongoing)
+  * [CADD scores (GRCh37)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz)  (78.0GB)
+  * [CADD scores (GRCh38)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)  (80.6GB)
 
 
 
