@@ -7,7 +7,7 @@ The dNdS-Fun sub-model
 -------------------
 ### 1. RefElement
   * [GRCh37: whole-gene](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.whole-gene.GRCh37.rda)  (77.8MB) 
-  * [GRCh37: cds-exon](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.cds-exon.GRCh37.rda)  (36.5MB)
+  * [GRCh37: cds](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.cds.GRCh37.rda)  (36.5MB)
   * [GRCh37: ss](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.ss.GRCh37.rda)  (18.4MB)
   * [GRCh37: 5utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.5utr.GRCh37.rda)  (15.6MB)
   * [GRCh37: 3utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/CADD.3utr.GRCh37.rda)  (27.4MB)
@@ -17,7 +17,7 @@ The dNdS-Fun sub-model
   * [GRCh37: DichotomyLog](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37/Dichotomy.GRCh37.log)  (259B)
 
   * [GRCh38: whole-gene](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.whole-gene.GRCh38.rda)  (77.8MB) 
-  * [GRCh38: cds-exon](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.cds.GRCh38.rda)  (36.3MB)
+  * [GRCh38: cds](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.cds.GRCh38.rda)  (36.3MB)
   * [GRCh38: ss](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.ss.GRCh38.rda)  (18.3MB)
   * [GRCh38: 5utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.5utr.GRCh38.rda)  (15.4MB)
   * [GRCh38: 3utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.3utr.GRCh38.rda)  (27.2MB)
