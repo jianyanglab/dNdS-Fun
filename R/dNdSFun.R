@@ -1,5 +1,5 @@
 dNdSFun <- function(mutsFile, refDb_element, reg, geneDB, globaldnds_outFile,
-                  genelevel_selcv_outFile, iscv = NULL, score = "false", 
+                  genelevel_outFile, iscv = NULL, score = "false", 
                   score_database = NULL, model = 2, thread_num = 22) 
 {
     if (!requireNamespace("GenomicRanges", quietly = TRUE)) {
@@ -448,7 +448,7 @@ dNdSFun <- function(mutsFile, refDb_element, reg, geneDB, globaldnds_outFile,
 
         ####output of sel_cv
         selcv_res <- as.data.frame(sel_cv)
-        write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
+        write.table(selcv_res,genelevel_outFile,sep="\t",row.names=F,quote=F)
 
 
     }    
@@ -479,7 +479,7 @@ dNdSFun <- function(mutsFile, refDb_element, reg, geneDB, globaldnds_outFile,
 
         ####output of sel_cv
         selcv_res <- as.data.frame(sel_cv)
-        write.table(selcv_res,genelevel_selcv_outFile,sep="\t",row.names=F,quote=F)
+        write.table(selcv_res,genelevel_outFile,sep="\t",row.names=F,quote=F)
     }
     message(sprintf('Analysis is complete!'))
 }
