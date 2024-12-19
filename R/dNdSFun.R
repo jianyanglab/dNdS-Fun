@@ -1,4 +1,4 @@
-dNdSFun <- function(mutsFile, refDb_element, reg, geneDB, globaldnds_outFile,
+dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFile,
                   genelevel_outFile, iscv = NULL, score = "false", 
                   score_database = NULL, model = 2, thread_num = 22) 
 {
