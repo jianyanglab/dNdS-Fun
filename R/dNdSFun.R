@@ -136,7 +136,7 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
             group_file <- paste0(tmp_folder, "/chunk_", data, ".txt")
             write.table(group, file = group_file, sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
 
-            miss_file_path <- "/storage/yangjianLab/westlakechat/yanglabpipe_online/scripts/dNdSFun/log/missing.txt"
+            miss_file_path <- "missing.txt"
 	    if (GenoVersion == "GRCh38"){
 		    tbi_file <- paste0(score_database, "/whole_genome_SNVs.tsv.gz.", chr_name, ".gz.rankRawScore.GRCh38.gz")
 	    }else{
