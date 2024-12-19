@@ -16,7 +16,7 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
     library(doParallel)
     library(foreach)
     library(iterators)
-    if (geneDB == "GRCh38"){
+    if (GenoVersion == "GRCh38"){
         Dichotomy_path <- system.file("Dichotomy.GRCh38.log", package = "dNdSFun")
     }else{
         Dichotomy_path <- system.file("Dichotomy.GRCh37.log", package = "dNdSFun")
@@ -137,7 +137,7 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
             write.table(group, file = group_file, sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
 
             miss_file_path <- "/storage/yangjianLab/westlakechat/yanglabpipe_online/scripts/dNdSFun/log/missing.txt"
-	    if (geneDB == "GRCh38"){
+	    if (GenoVersion == "GRCh38"){
 		    tbi_file <- paste0(score_database, "/whole_genome_SNVs.tsv.gz.", chr_name, ".gz.rankRawScore.GRCh38.gz")
 	    }else{
                 tbi_file <- paste0(score_database, "/whole_genome_SNVs.tsv.gz.", chr_name, ".gz.rankRawScore.gz")
