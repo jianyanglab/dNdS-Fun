@@ -6,3 +6,4 @@ ss	0.50	0.803337	CADD
 prom 0.50	0.148504	CADD
 intron-gencode 0.50	0.028374	CADD
 intergenic-gencode 0.50	0.003797	CADD
+whole-gene	0.50	0.396962	CADD
