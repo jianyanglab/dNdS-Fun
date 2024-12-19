@@ -1,5 +1,5 @@
 Region	Dichotomy	Threshold FISType
-cds-exon 0.50	2.100813	CADD
+cds 0.50	2.100813	CADD
 3utr 0.50	0.151779	CADD
 5utr 0.50	0.462124	CADD
 ss	0.50	0.803337	CADD
