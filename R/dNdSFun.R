@@ -63,7 +63,6 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
     grouped_data <- split(maf_data, maf_data[, 2])
     chrs <- names(grouped_data)
     filt_chrs <- chrs[grepl("^(chr)?([1-9]|1[0-9]|2[0-2])$", chrs)]
-
     tmp_folder <- paste0(reg, "_", nrow(maf_data), "_tmp")
     if (!file.exists(tmp_folder)) {
         dir.create(tmp_folder)
@@ -93,19 +92,15 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
         sorted_keys <- names(grouped_data)[order(as.numeric(gsub("chr", "", names(grouped_data))))]
         data_sorted <- grouped_data[sorted_keys]
         group_array <- lapply(data_sorted, identity)
-
         # generate data chunk
         lengths_array <- sapply(group_array, nrow)
         min_length_index <- which.min(lengths_array)
         min <- nrow(group_array[[min_length_index]])
         sub_blocks <- sapply(lengths_array, function(length) ceiling(length / min))
-        sub_block_keys <- unlist(sapply(1:length(sub_blocks), function(i) paste0(i, ".", 1:sub_blocks[i])))
-        
+        sub_block_keys <- unlist(sapply(1:length(sub_blocks), function(i) paste0(i, ".", 1:sub_blocks[i]))) 
         rm(sorted_keys, data_sorted, group_array)
-
         chrs <- length(keys)
         ncpu = min(chrs, thread_num, parallel::detectCores())
-
         cl = parallel::makeCluster(ncpu)
         parallel::clusterExport(cl=cl, varlist=c("tmp_folder", "mutsFile"), envir=environment())
         registerDoParallel(cl)
@@ -237,7 +232,6 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
                                             "positiveThreshold", 
                                             "negativeThreshold",
                                             "mutsFile"), envir=environment())
-
     registerDoParallel(cl)
     `%dopar2%` = foreach::`%dopar%`
     result = foreach::foreach(data = filt_chrs) %dopar2% {
@@ -261,7 +255,6 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
         load(paste0(tmp_folder, "/gr_elements.rda"))
         RefElement <- get(ref_name)
         rm(ref_name)
-        
         elements_list=NULL
         
         # Step 1: Variables required
@@ -288,22 +281,18 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
             maf <- maf[-unique(idxna[,1]),]
             warning(sprintf("%0.0f rows in the input table contained NA entries and have been removed. Please investigate.",length(unique(idxna[,1]))))
         }
-
         maf$chr <- ifelse(
-            grepl("^chr", maf$chr),  # 检查是否以"chr"开头
-            maf$chr,                 # 如果以"chr"开头，则保持不变
-            paste0("chr", maf$chr)   # 否则，在原字符串前添加"chr"
+            grepl("^chr", maf$chr),  
+            maf$chr,                
+            paste0("chr", maf$chr) 
         )
-
         # Expanding the reference sequences [for faster access]
         for (j in 1:length(RefElement)) {
             RefElement[[j]]$seq_element <- base::strsplit(as.character(RefElement[[j]]$seq_element), split="")[[1]]
             RefElement[[j]]$seq_element1up <- base::strsplit(as.character(RefElement[[j]]$seq_element1up), split="")[[1]]
             RefElement[[j]]$seq_element1down <- base::strsplit(as.character(RefElement[[j]]$seq_element1down), split="")[[1]]
         }
-
-        idx <- setNames(1:length(RefElement), sapply(RefElement,function(x) x$gene_name))
-        
+        idx <- setNames(1:length(RefElement), sapply(RefElement,function(x) x$gene_name)) 
         gr_elements_idx <- idx[gr_elements$names]
         # Start and end position of each mutation
         maf$end <- maf$start <- maf$pos
@@ -313,7 +302,6 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
         if (nrow(ol) == 0) {
             stop("The overlap data frame is empty.")
         }
-
         maf <- maf[ol[,1],] # Duplicating subs if they hit more than one gene
         maf$elementidx <- gr_elements_idx[ol[,2]]
         maf$element <- sapply(RefElement,function(x) x$gene_name)[maf$elementidx]
@@ -344,7 +332,6 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
             maf <- maf[-unique(idxna[,1]),]
             warning(sprintf("%0.0f mutations contained NA impact score values and have been removed. Please investigate.",length(unique(idxna[,1]))))
         }
-
         maf$ref_cod <- maf$ref
         maf$mut_cod <- maf$alt
         compnt <- setNames(rev(nt), nt)
@@ -363,15 +350,11 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
             return(which(rev(unlist(apply(element_int, 1, function(x) x[1]:x[2]))) %in% pos))
             }
         }
-
-        ref3_cod <- mut3_cod <- wrong_ref <- impact <- codonsub <- array(NA, nrow(maf))
-        
-        for (j in 1:nrow(maf)) {
-            
+        ref3_cod <- mut3_cod <- wrong_ref <- impact <- codonsub <- array(NA, nrow(maf))        
+        for (j in 1:nrow(maf)) {          
             elementidx <- maf$elementidx[j]
             pos <- maf$pos[j]
-            impidx <- maf$impidx[j]
-           
+            impidx <- maf$impidx[j]   
             pos_idx <- chr2element(pos, RefElement[[elementidx]]$intervals_element, RefElement[[elementidx]]$strand)
             element <- RefElement[[elementidx]]$seq_element[pos_idx]
             ref3_cod[j] <- sprintf("%s%s%s", RefElement[[elementidx]]$seq_element1up[pos_idx], RefElement[[elementidx]]$seq_element[pos_idx], RefElement[[elementidx]]$seq_element1down[pos_idx])
@@ -383,10 +366,8 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
             RefElement[[elementidx]]$N[triMut,impidx] <- RefElement[[elementidx]]$N[triMut,impidx] + 1 # Adding the mutation to the N matrices
             # RefElement_addN <- append(RefElement_addN, list(RefElement[[elementidx]]))
             }
-
             # if (round(j/1e4)==(j/1e4)) { message(sprintf('    %0.3g%% ...', round(j/nrow(maf),2)*100)) }
         }
-
         wrong_refbase <- NULL
         if (any(!is.na(wrong_ref))) {
             if (mean(!is.na(wrong_ref)) < 0.1) { # If fewer than 10% of mutations have a wrong reference base, we warn the user
@@ -398,14 +379,11 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
             maf <- maf[is.na(wrong_ref),]
         }
         return(list(maf = maf, RefElement1 = RefElement, exclsamples = exclsamples))
-
     }
-
     # Closing thread cluster
     stopCluster(cl)
 
     unlink(tmp_folder, recursive = TRUE)
-
     maf_result <- lapply(result, function(x) x$maf)
     maf <- do.call(rbind, maf_result)
     RefElement1 <- unlist(lapply(result, function(x) x$RefElement1), recursive = FALSE)
@@ -425,7 +403,6 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
                                     "positive","negative","positiveThreshold","negativeThreshold",
                                     "negbeta")
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
-
     } else if (model=="2"){
         globaldnds <- CADD_dndsWGSout$globaldnds
         sel_cv <- CADD_dndsWGSout$sel_cv
@@ -435,7 +412,6 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
         nbreg <- CADD_dndsWGSout$nbreg
         nbregind <- CADD_dndsWGSout$nbregind
         possmodel <- CADD_dndsWGSout$poissmodel
-
         ####output of globaldnds
         info <- c(positive,negative,positiveThreshold,negativeThreshold,negbeta)
         globaldnds_res <- as.data.frame(matrix(c(unlist(globaldnds),info),nrow=1))
@@ -445,12 +421,9 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
                                     "positive","negative","positiveThreshold","negativeThreshold",
                                     "negbeta")
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
-
         ####output of sel_cv
         selcv_res <- as.data.frame(sel_cv)
         write.table(selcv_res,genelevel_outFile,sep="\t",row.names=F,quote=F)
-
-
     }    
     else{
         globaldnds <- CADD_dndsWGSout$globaldnds
@@ -472,11 +445,9 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
                                     "positive","negative","positiveThreshold",
                                     "negativeThreshold", "negbeta")
         write.table(globaldnds_res,globaldnds_outFile,sep="\t",row.names=F,quote=F)
-
         ####output of sel_loc
         selloc_res <- as.data.frame(sel_loc)
         write.table(selloc_res,"../OUT/test/dNdS_CADD.element.nb.out",sep="\t",row.names=F,quote=F)
-
         ####output of sel_cv
         selcv_res <- as.data.frame(sel_cv)
         write.table(selcv_res,genelevel_outFile,sep="\t",row.names=F,quote=F)
