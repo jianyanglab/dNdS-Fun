@@ -17,14 +17,14 @@ devtools::install_github("jianyanglab/dNdS-Fun", build_vignettes = FALSE)
 ```
 ### Install from Source Code
 **Requirements:**    
-1. parallel
-2. data.table
-3. MASS
-4. doParallel
-5. foreach
-6. GenomicRanges (install via Bioconductor)
-7. Biostrings (install via Bioconductor)
-8. **tabix** (command-line tool)
+1. parallel (version >= 4.0.5)
+2. data.table (version >= 1.16.4)
+3. MASS (version >= 7.3.56)
+4. doParallel (version >= 1.0.17)
+5. foreach (version >= 1.5.2)
+6. GenomicRanges (install via Bioconductor, version >= 1.42.0)
+7. Biostrings (install via Bioconductor, version >= 2.58.0)
+8. **tabix** (command-line tool, version >= 0.2.6)
 
 ### Installation Steps:
 1. Install necessary R packages:   

@@ -40,6 +40,7 @@ Parameters of `dNdS-Fun`
 - `mutsFile`: The input table of somatic mutations is a table-delimited text file. Each row corresponds to a somatic mutation, and six columns are separate "IndividualID, Chromosome, Position, Ref, Alt, Functional_impact_scores (raw score)". (Attention: The IndividualID is needed be provided to filtered out the duplicate mutations from the same indivudual. If you have not exact IndividualID for the recurrent mutations, you can use different pseudo-IndividualID to avoid the filteration of recurrent mutations from different individuals.)
 - `refDb_element`: The trinucleotide models hava been constructed, including coding region (cds-exon), proximatory regions of splicing site (ss), 5'UTR (5utr), 3'UTR (3utr), promoter (prom), intron (intron-gencode) and intergenic (intergenic-gencode) regions.
 - `reg`: A character variable to specify the corresponding constructed models, including coding region (cds-exon), proximatory regions of splicing site (ss), 5'UTR (5utr), 3'UTR (3utr), promoter (prom), intron (intron-gencode) and intergenic (intergenic-gencode) regions. Please use the values in parentheses for assignment.
+- `genoVersion`: A character variable to specify the corresponding corresponding genome reference (GRCh37 or GRCh38) for your somatic mutations.
 - `globaldnds_outFile`: The output of global selection estimation.
 (revised) - `genelevel_selcv_outFile`:
 - `genelevel_outFile`: The output of gene/element-level selection estimation.
