@@ -222,6 +222,7 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
 
     #Thread function
     chr_nums <- length(filt_chrs)
+    keys <- 1 : chr_nums
     ncpu = min(chr_nums, thread_num, parallel::detectCores())
     message(sprintf("\nAccording to the environment, %d threads will be created for calculation.\n", ncpu))
     cl = parallel::makeCluster(ncpu)
@@ -234,7 +235,7 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
                                             "mutsFile"), envir=environment())
     registerDoParallel(cl)
     `%dopar2%` = foreach::`%dopar%`
-    result = foreach::foreach(data = filt_chrs) %dopar2% {
+    result = foreach::foreach(data = keys) %dopar2% {
         library(data.table)
         library(GenomicRanges)
         library(GenomeInfoDb)
