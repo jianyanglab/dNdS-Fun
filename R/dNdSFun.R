@@ -240,7 +240,8 @@ dNdSFun <- function(mutsFile, refDb_element, reg, GenoVersion, globaldnds_outFil
         library(GenomeInfoDb)
 
         if (score == "TRUE") {
-            scoreFile <- paste0(tmp_folder, "/chr", data, "_all.txt")
+            numeric_chrs <- gsub("^chr", "", data)
+            scoreFile <- paste0(tmp_folder, "/chr", numeric_chrs, "_all.txt")
             maf <- fread(scoreFile, header = FALSE)
         } else  {
             maf_data <- fread(mutsFile,header = FALSE)
