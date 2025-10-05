@@ -22,10 +22,18 @@ The dNdS-Fun sub-model
   * [GRCh38: 5utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.5utr.GRCh38.rda)  (15.4MB)
   * [GRCh38: 3utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.3utr.GRCh38.rda)  (27.2MB)
   * [GRCh38: prom](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.prom.GRCh38.rda)  (30.0MB)
-  * [GRCh38: intron-gencode](https://jianyanglab.github.io/dNdS-Fun/documentation/03_data.html)  (ongoing)
-  * [GRCh38: intergenic-gencode](https://jianyanglab.github.io/dNdS-Fun/documentation/03_data.html)  (ongoing)
+  * [GRCh38: intron-gencode](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.intron.GRCh38.rda)  (1.19GB)
+  * [GRCh38: intergenic-gencode](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/CADD.intergenic.GRCh38.rda)  (812 MB)
   * [GRCh38: DichotomyLog](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh38/Dichotomy.GRCh38.log)  (236B)
   
+  * [GRCh37_GENCODEv49: whole-gene](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37_GENCODEv49/CADD.whole-gene.GRCh37.rda)  (75.4 MB) 
+  * [GRCh37_GENCODEv49: cds](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37_GENCODEv49/CADD.cds.GRCh37.rda)  (35.5 MB)
+  * [GRCh37_GENCODEv49: ss](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37_GENCODEv49/CADD.ss.GRCh37.rda)  (18.0MB)
+  * [GRCh37_GENCODEv49: 5utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37_GENCODEv49/CADD.5utr.GRCh37.rda)  (15.1MB)
+  * [GRCh37_GENCODEv49: 3utr](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37_GENCODEv49/CADD.3utr.GRCh37.rda)  (26.6MB)
+  * [GRCh37_GENCODEv49: prom](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37_GENCODEv49/CADD.prom.GRCh37.rda)  (28.8MB)
+  * [GRCh37_GENCODEv49: DichotomyLog](https://yanglab.westlake.edu.cn/data/dNdSFun/RefElement/GRCh37_GENCODEv49/Dichotomy.GRCh37_GENCODEv49.log)  (278B)
+
 ### 2. Score
   * [CADD scores (GRCh37)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh37/whole_genome_SNVs.tsv.gz)  (78.0GB)
   * [CADD scores (GRCh38)](https://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/whole_genome_SNVs.tsv.gz)  (80.6GB)
